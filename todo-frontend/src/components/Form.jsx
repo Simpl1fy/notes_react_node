@@ -3,8 +3,8 @@
 function Form() {
   return (
     <>
-      <div className="form-container mx-3 mt-3">
-        <form className="px-auto border border-2 border-dark p-3 rounded-4">
+      <div className="form-container px-3 py-3 bg-primary vh-100">
+        <form className="px-auto border border-2 border-dark p-3 rounded-4 bg-light">
           <div className="mb-3">
             <label htmlFor="heading" className="form-label">
               Heading
@@ -20,10 +20,15 @@ function Form() {
             <label htmlFor="explanation" className="form-label">
               Explanation
             </label>
-            <textarea name="explain" id="explanationBox" className="form-control" rows="5"></textarea>
+            <textarea
+              name="explain"
+              id="explanationBox"
+              className="form-control"
+              rows="5"
+            ></textarea>
           </div>
           <div className="d-grid">
-            <button type="submit" className="btn btn-primary d-block">
+            <button type="submit" className="btn btn-success d-block">
               Submit
             </button>
           </div>
