@@ -6,7 +6,7 @@ function Navbar() {
       <nav className="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
         <div className="container-fluid  d-flex justify-content-center">
           <a className="navbar-brand" href="#">
-            Todo App
+            Notes - Create your own notes and save them
           </a>
         </div>
       </nav>
