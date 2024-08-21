@@ -20,27 +20,15 @@ router.post('/signup', async(req, res) => {
             return res.status(102).json({"Error": "Please fill out all the information"})
         }
 
-        const checkUserAlreadyExists = 'select * from users where email = ?';
-        conn.query(checkUserAlreadyExists, [email], (err, results) => {
-            if(err) {
-                console.error(err);
-                res.status(500).json({Error: 'Internal Server Error'});
-            }
+        // const checkUserAlreadyExists = 'select * from users where email = ?';
+        const [rows] = await conn.query('select * from users where email = ?', [email]);
+        if (rows.length > 0) {
+            res.status(409).json({"Error": "User Already Exists"});
+        }
 
-            if (results.length > 0) {
-                return res.status(409).json({Error: "User already exists"});
-            }
+        await conn.query('insert into users (name, email, password) values (?,?,?)', [name, email, password]);
 
-            const insertUserQuery = 'insert into users (name, email, password) values (?,?,?)';
-            conn.query(insertUserQuery, [name, email, password], (err, results) => {
-                if(err) {
-                    console.error(err);
-                    res.status(500).json({"Error": "Database error!"});
-                }
-                console.log(results);
-                res.status(201).json({"Message": "User Created Successfully"});
-            })
-        })
+        res.status(201).json({"Message": "User has been created"});
     } catch(err) {
         console.error(err);
         res.status(500).json({Error: "Internal Server Error!"});
