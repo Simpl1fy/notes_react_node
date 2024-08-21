@@ -33,7 +33,12 @@ router.post('/signup', async(req, res) => {
 
             const insertUserQuery = 'insert into users (name, email, password) values (?,?,?)';
             conn.query(insertUserQuery, [name, email, password], (err, results) => {
-                
+                if(err) {
+                    console.error(err);
+                    res.status(500).json({"Error": "Database error!"});
+                }
+                console.log(results);
+                res.status(201).json({"Message": "User Created Successfully"});
             })
         })
     } catch(err) {
