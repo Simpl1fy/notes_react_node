@@ -8,8 +8,8 @@ const conn = require('./connection');
 const app = express();
 
 const corsOptions = {
-    origin: 'http://localhost:5000'
-}
+    origin: "http://localhost:3000",
+};
 
 app.use(cors(corsOptions));
 

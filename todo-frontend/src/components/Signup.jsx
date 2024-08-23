@@ -3,20 +3,19 @@ import { useState } from "react";
 import axios from 'axios';
 
 export default function Signup() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [formName, setName] = useState('');
+  const [formEmail, setEmail] = useState('');
+  const [formPassword, setPassword] = useState('');
   const [message, setMessage] = useState('')
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('/signup', {name, email, password});
-      console.log("Post request has been sent");
-      console.log(res);
+      const res = await axios.post('http://localhost:5000/signup', {formName, formEmail, formPassword});
       setMessage(res.data.message);
     } catch(err) {
-      setMessage(err.response?.data?.Error || "Error signing up");
+      console.error(err);
+      setMessage(err.response?.data?.error || "Could not sign up")
     }
   }
   return (
