@@ -4,14 +4,6 @@ const bcrypt = require('bcrypt');
 
 const conn = require('./../connection');
 
-conn.getConnection((err, connection) => {
-    if (err) {
-        throw err;
-        console.log("Could not connect to database");
-    }
-    console.log("Database connection has been secured");
-})
-
 router.post('/signup', async(req, res) => {
     try {
         const { name, email, password } = req.body;
