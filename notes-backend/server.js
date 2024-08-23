@@ -7,7 +7,11 @@ const conn = require('./connection');
 
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+    origin: 'http://localhost:5000'
+}
+
+app.use(cors(corsOptions));
 
 // Middleware
 // parse application/x-www-form-urlencoded

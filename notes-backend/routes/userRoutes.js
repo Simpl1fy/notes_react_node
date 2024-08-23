@@ -8,17 +8,18 @@ const saltRounds=10;
 
 router.post('/signup', async(req, res) => {
     try {
+        console.log('/signup was accessed')
         const { name, email, password } = req.body;
         
         // validate input
         if(!name || !email || !password) {
-            return res.status(102).json({"Error": "Please fill out all the information"})
+            return res.status(102).json({error: "Please fill out all the information"})
         }
         
         // const checkUserAlreadyExists = 'select * from users where email = ?';
         const [rows] = await conn.query('select * from users where email = ?', [email]);
         if (rows.length > 0) {
-            return res.status(409).json({"Error": "User Already Exists"});
+            return res.status(409).json({error: "User Already Exists"});
         }
         // hash the password
         const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -26,10 +27,10 @@ router.post('/signup', async(req, res) => {
         await conn.query('insert into users (name, email, password) values (?,?,?)', [name, email, hashedPassword]);
         
         // return response
-        return res.status(201).json({"Message": "User has been created"});
+        return res.status(201).json({message: "User has been created"});
     } catch(err) {
         console.error(err);
-        return res.status(500).json({Error: "Internal Server Error!"});
+        return res.status(500).json({error: "Internal Server Error!"});
     }
 })
 
@@ -39,14 +40,14 @@ router.post('/login', async(req, res) => {
         
         // checking for input
         if(!email || !password) {
-            return res.status(400).json({"Error": "Please fill out all the information"})
+            return res.status(400).json({error: "Please fill out all the information"})
         }
 
         // checking if the email exists or not
         const [rows] = await conn.query('select * from users where email = ?', [email]);
         // console.log(rows[0].password);
         if (rows.length === 0) {
-            return res.status(404).json({"Error": "Please sign up first!"});
+            return res.status(404).json({error: "Please sign up first!"});
         }
 
         // hashed password
@@ -57,12 +58,12 @@ router.post('/login', async(req, res) => {
 
         // false condition
         if(!isMatch) {
-            return res.status(401).json({"Error": "Password does not match!"});
+            return res.status(401).json({error: "Password does not match!"});
         }
-        return res.status(200).json({"message": "You have been logged in!"});
+        return res.status(200).json({message: "You have been logged in!"});
     } catch(err) {
         console.error(err);
-        res.status(500).json({"Error": "Internal Server Error!"});
+        res.status(500).json({error: "Internal Server Error!"});
     }
 })
 

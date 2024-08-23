@@ -1,9 +1,27 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import axios from 'axios';
 
 export default function Signup() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('')
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post('/signup', {name, email, password});
+      console.log("Post request has been sent");
+      console.log(res);
+      setMessage(res.data.message);
+    } catch(err) {
+      setMessage(err.response?.data?.Error || "Error signing up");
+    }
+  }
   return (
     <div className="form-container bg-primary vh-100 px-3 py-3 d-flex justify-content-center align-items-center">
-      <form className="bg-light px-3 py-3 border border-2 rounded-2 border-dark w-25">
+      <form className="bg-light px-3 py-3 border border-2 rounded-2 border-dark w-25" onSubmit={handleSubmit} action="" method="post">
         <h2 className="mb-3">Signup</h2>
         <div className="mb-3">
           <label htmlFor="name" className="form-label">
@@ -15,6 +33,7 @@ export default function Signup() {
             id="name"
             className="form-control"
             placeholder="John Doe"
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
         <div className="mb-3">
@@ -27,6 +46,7 @@ export default function Signup() {
             id="email"
             className="form-control"
             placeholder="xyz@gmail.com"
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className="mb-3">
@@ -34,10 +54,11 @@ export default function Signup() {
             <strong>Password:</strong>
           </label>
           <input
-            type="text"
+            type="password"
             name="password"
             id="password"
             className="form-control"
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <div>
@@ -51,6 +72,7 @@ export default function Signup() {
               <strong>Login</strong>
             </Link>
         </div>
+        {message && <p>{message}</p>}
       </form>
     </div>
   );
