@@ -1,6 +1,9 @@
 import Modal  from 'react-modal'
+import { Link } from 'react-router-dom';
 
-export default function SuccessModal({isOpen, onRequestClose, heading, message}) {
+Modal.setAppElement('#root');
+
+export default function SuccessModal({ isOpen, onRequestClose, heading, message }) {
   return (
     <div>
       <Modal
@@ -9,7 +12,7 @@ export default function SuccessModal({isOpen, onRequestClose, heading, message})
       >
         <h2>{heading}</h2>
         <div>{message}</div>
-        <button onClick={onRequestClose}>Close</button>
+        <Link to={"/home"} onClick={onRequestClose}>Go to Home Page</Link>
       </Modal>
     </div>
   )

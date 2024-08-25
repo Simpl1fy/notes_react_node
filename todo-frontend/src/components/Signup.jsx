@@ -1,13 +1,23 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from 'axios';
+import SuccessModal from "./SuccessModal";
+
+
 
 export default function Signup() {
   const [formName, setName] = useState('');
   const [formEmail, setEmail] = useState('');
   const [formPassword, setPassword] = useState('');
   const [message, setMessage] = useState('')
-
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [wasSuccess, setSuccess] = useState(false);
+  const openModal = () => {
+    setModalIsOpen(true);
+  }
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -17,7 +27,16 @@ export default function Signup() {
         password: formPassword
       });
       console.log(res.data.message);
-      res.data.success ? setMessage("User signup successful") : setMessage("User signup failed");
+      // res.data.success ? setMessage("User signup successful") : setMessage("User signup failed");
+      console.log(res.data.success)
+      if(res.data.success) {
+        setSuccess(true);
+      }
+      if(wasSuccess) {
+        openModal();
+      } else {
+        setMessage("Could not sign up");
+      }
     } catch(err) {
       console.error(err);
       setMessage(err.response?.data?.error || "Could not sign up")
@@ -80,6 +99,12 @@ export default function Signup() {
         </div>
         {message && <p>{message}</p>}
       </form>
+      <SuccessModal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        heading="You have succesfully signed up"
+        message="You have signed up, you can now make your own notes and save them for later."
+      />
     </div>
   );
 }
