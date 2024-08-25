@@ -13,24 +13,37 @@ router.post('/signup', async(req, res) => {
         
         // validate input
         if(!name || !email || !password) {
-            return res.status(102).json({error: "Please fill out all the information"})
+            return res.status(102).json({
+                success: false,
+                message: "Please fill out all the fields"
+            })
         }
         
         // const checkUserAlreadyExists = 'select * from users where email = ?';
         const [rows] = await conn.query('select * from users where email = ?', [email]);
         if (rows.length > 0) {
-            return res.status(409).json({error: "User Already Exists"});
+            return res.status(204).json({
+                success: false,
+                message: "User already exists"
+            });
         }
         // hash the password
         const hashedPassword = await bcrypt.hash(password, saltRounds);
         // insert the data into the database
-        await conn.query('insert into users (name, email, password) values (?,?,?)', [name, email, hashedPassword]);
+        await conn.query('insert into users (name, email, password) values (?,?,?)', [name, email,  hashedPassword]);
         
         // return response
-        return res.status(201).json({message: "User has been created"});
+        return res.status(201).json({
+            success: true,
+            message: "Data created succesfully",
+        });
     } catch(err) {
         console.error(err);
-        return res.status(500).json({error: "Internal Server Error!"});
+        return res.status(500).json({
+            success: false,
+            message: "Internal Server Error!",
+            error: err.message
+        });
     }
 })
 

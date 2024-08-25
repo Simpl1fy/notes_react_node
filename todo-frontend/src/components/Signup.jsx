@@ -11,8 +11,13 @@ export default function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/signup', {formName, formEmail, formPassword});
-      setMessage(res.data.message);
+      const res = await axios.post('http://localhost:5000/signup', {
+        name: formName,
+        email: formEmail,
+        password: formPassword
+      });
+      console.log(res.data.message);
+      res.data.success ? setMessage("User signup successful") : setMessage("User signup failed");
     } catch(err) {
       console.error(err);
       setMessage(err.response?.data?.error || "Could not sign up")
@@ -33,6 +38,7 @@ export default function Signup() {
             className="form-control"
             placeholder="John Doe"
             onChange={(e) => setName(e.target.value)}
+            autoComplete="true"
           />
         </div>
         <div className="mb-3">
@@ -46,6 +52,7 @@ export default function Signup() {
             className="form-control"
             placeholder="xyz@gmail.com"
             onChange={(e) => setEmail(e.target.value)}
+            autoComplete="true"
           />
         </div>
         <div className="mb-3">
