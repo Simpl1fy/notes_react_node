@@ -35,7 +35,7 @@ router.post('/signup', async(req, res) => {
         // return response
         return res.status(201).json({
             success: true,
-            message: "Data created succesfully",
+            message: "You have signed up",
         });
     } catch(err) {
         console.error(err);

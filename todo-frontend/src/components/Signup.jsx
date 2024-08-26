@@ -26,16 +26,15 @@ export default function Signup() {
         email: formEmail,
         password: formPassword
       });
+      console.log(res.status);
+      console.log(res.data.success);
       console.log(res.data.message);
-      // res.data.success ? setMessage("User signup successful") : setMessage("User signup failed");
-      console.log(res.data.success)
       if(res.data.success) {
         setSuccess(true);
-      }
-      if(wasSuccess) {
+        setMessage(res.data.message);
         openModal();
       } else {
-        setMessage("Could not sign up");
+        setMessage(res.data.message);
       }
     } catch(err) {
       console.error(err);
@@ -102,8 +101,7 @@ export default function Signup() {
       <SuccessModal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-        heading="You have succesfully signed up"
-        message="You have signed up, you can now make your own notes and save them for later."
+        message={message}
       />
     </div>
   );
