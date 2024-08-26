@@ -10,13 +10,12 @@ export default function Signup() {
   const [formEmail, setEmail] = useState('');
   const [formPassword, setPassword] = useState('');
   const [message, setMessage] = useState('')
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [wasSuccess, setSuccess] = useState(false);
-  const openModal = () => {
-    setModalIsOpen(true);
+  const [successModalIsOpen, setSuccessModalIsOpen] = useState(false);
+  const openModal = (setState) => {
+    setState(true);
   }
-  const closeModal = () => {
-    setModalIsOpen(false);
+  const closeModal = (setState) => {
+    setState(false);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,9 +29,8 @@ export default function Signup() {
       console.log(res.data.success);
       console.log(res.data.message);
       if(res.data.success) {
-        setSuccess(true);
         setMessage(res.data.message);
-        openModal();
+        openModal(setSuccessModalIsOpen);
       } else {
         setMessage(res.data.message);
       }
