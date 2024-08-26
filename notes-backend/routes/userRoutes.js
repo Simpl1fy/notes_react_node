@@ -13,7 +13,7 @@ router.post('/signup', async(req, res) => {
         
         // validate input
         if(!name || !email || !password) {
-            return res.status(102).json({
+            return res.status(400).json({
                 success: false,
                 message: "Please fill out all the fields"
             })
@@ -22,7 +22,7 @@ router.post('/signup', async(req, res) => {
         // const checkUserAlreadyExists = 'select * from users where email = ?';
         const [rows] = await conn.query('select * from users where email = ?', [email]);
         if (rows.length > 0) {
-            return res.status(204).json({
+            return res.status(409).json({
                 success: false,
                 message: "User already exists"
             });
