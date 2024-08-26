@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from 'axios';
 import SuccessModal from "./SuccessModal";
+import FailureModal from "./FailureModal";
 
 
 
@@ -11,11 +12,12 @@ export default function Signup() {
   const [formPassword, setPassword] = useState('');
   const [message, setMessage] = useState('')
   const [successModalIsOpen, setSuccessModalIsOpen] = useState(false);
-  const openModal = (setState) => {
-    setState(true);
+  const [failureModalIsOpen, setFailureModalIsOpen] = useState(false);
+  const openModal = (setModalState) => {
+    setModalState(true);
   }
-  const closeModal = (setState) => {
-    setState(false);
+  const closeModal = (setModalState) => {
+    setModalState(false);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,6 +35,7 @@ export default function Signup() {
         openModal(setSuccessModalIsOpen);
       } else {
         setMessage(res.data.message);
+        openModal(setFailureModalIsOpen);
       }
     } catch(err) {
       console.error(err);
@@ -97,8 +100,13 @@ export default function Signup() {
         {message && <p>{message}</p>}
       </form>
       <SuccessModal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
+        isOpen={successModalIsOpen}
+        onRequestClose={() => closeModal(setSuccessModalIsOpen)}
+        message={message}
+      />
+      <FailureModal
+        isOpen={failureModalIsOpen}
+        onRequestClose={() => closeModal(setFailureModalIsOpen)}
         message={message}
       />
     </div>
