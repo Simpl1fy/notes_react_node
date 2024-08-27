@@ -72,12 +72,13 @@ router.post('/login', async(req, res) => {
         // checking if the email exists or not
         const [rows] = await conn.query('select * from users where email = ?', [email]);
         // console.log(rows[0].password);
-        if (rows.length === 0) {
+        if (rows[0].length === 0) {
             return res.status(200).json({
                 success: false,
                 message: "Please sign up first!"
             });
         }
+        // console.log(rows[0].id)
 
         // hashed password
         const hashedPassword = rows[0].password;
@@ -91,11 +92,20 @@ router.post('/login', async(req, res) => {
                 success: false,
                 message: "Incorrect Password"
             });
-        }
-        return res.status(200).json({
-            success: true,
-            message: "You have been logged in!"
-        });
+        } else {
+            const userId = rows[0].id;
+            const payload = {
+                id: userId
+            }
+            const generatedToken = generateToken(payload);
+            console.log(`Token has been generated = ${generatedToken}`);
+
+            return res.status(200).json({
+                success: true,
+                message: "You have been logged in!",
+                token: generatedToken
+            });
+        }        
     } catch(err) {
         console.error(err);
         return res.status(500).json({
