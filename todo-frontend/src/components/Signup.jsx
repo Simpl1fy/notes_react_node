@@ -97,7 +97,6 @@ export default function Signup() {
               <strong>Login</strong>
             </Link>
         </div>
-        {message && <p>{message}</p>}
       </form>
       <SuccessModal
         isOpen={successModalIsOpen}

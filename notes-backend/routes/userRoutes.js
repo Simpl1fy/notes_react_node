@@ -22,7 +22,7 @@ router.post('/signup', async(req, res) => {
         // const checkUserAlreadyExists = 'select * from users where email = ?';
         const [rows] = await conn.query('select * from users where email = ?', [email]);
         if (rows.length > 0) {
-            return res.status(204).json({
+            return res.status(200).json({
                 success: false,
                 message: "User already exists"
             });
