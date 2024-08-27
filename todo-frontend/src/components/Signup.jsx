@@ -30,11 +30,10 @@ export default function Signup() {
       console.log(res.status);
       console.log(res.data.success);
       console.log(res.data.message);
+      setMessage(res.data.message);
       if(res.data.success) {
-        setMessage(res.data.message);
         openModal(setSuccessModalIsOpen);
       } else {
-        setMessage(res.data.message);
         openModal(setFailureModalIsOpen);
       }
     } catch(err) {
@@ -71,6 +70,7 @@ export default function Signup() {
             placeholder="John Doe"
             onChange={(e) => setName(e.target.value)}
             autoComplete="true"
+            required
           />
         </div>
         <div className="mb-3">
@@ -85,6 +85,7 @@ export default function Signup() {
             placeholder="xyz@gmail.com"
             onChange={(e) => setEmail(e.target.value)}
             autoComplete="true"
+            required
           />
         </div>
         <div className="mb-3">
@@ -97,6 +98,7 @@ export default function Signup() {
             id="password"
             className="form-control"
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
         </div>
         <div>
@@ -120,6 +122,7 @@ export default function Signup() {
         isOpen={failureModalIsOpen}
         onRequestClose={() => closeModal(setFailureModalIsOpen)}
         message={message}
+        link="/signup"
       />
     </div>
   );
