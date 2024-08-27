@@ -53,14 +53,20 @@ router.post('/login', async(req, res) => {
         
         // checking for input
         if(!email || !password) {
-            return res.status(400).json({error: "Please fill out all the information"})
+            return res.status(102).json({
+                success: false,
+                message: "Please fill out all the information"
+            })
         }
 
         // checking if the email exists or not
         const [rows] = await conn.query('select * from users where email = ?', [email]);
         // console.log(rows[0].password);
         if (rows.length === 0) {
-            return res.status(404).json({error: "Please sign up first!"});
+            return res.status(200).json({
+                success: false,
+                message: "Please sign up first!"
+            });
         }
 
         // hashed password
@@ -71,12 +77,22 @@ router.post('/login', async(req, res) => {
 
         // false condition
         if(!isMatch) {
-            return res.status(401).json({error: "Password does not match!"});
+            return res.status(200).json({
+                success: false,
+                message: "Incorrect Password"
+            });
         }
-        return res.status(200).json({message: "You have been logged in!"});
+        return res.status(200).json({
+            success: true,
+            message: "You have been logged in!"
+        });
     } catch(err) {
         console.error(err);
-        res.status(500).json({error: "Internal Server Error!"});
+        return res.status(500).json({
+            success: false,
+            message: "Internal Server Error!",
+            error: err.message
+        });
     }
 })
 

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 Modal.setAppElement("#root");
 
-export default function FailureModal({ isOpen, onRequestClose, message }) {
+export default function FailureModal({ isOpen, onRequestClose, message, link }) {
   return (
     <div>
       <Modal
@@ -21,7 +21,7 @@ export default function FailureModal({ isOpen, onRequestClose, message }) {
           <div>{message}</div>
 
           <Link
-            to={"/signup"}
+            to={link}
             onClick={onRequestClose}
             className="btn btn-primary"
             style={{ textDecoration: "none", color: "white" }}
