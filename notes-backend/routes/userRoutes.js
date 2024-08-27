@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
+const { generateToken, jwtAuthMiddleware } = require('./../jwt');
 
 const conn = require('./../connection');
 
@@ -30,12 +31,21 @@ router.post('/signup', async(req, res) => {
         // hash the password
         const hashedPassword = await bcrypt.hash(password, saltRounds);
         // insert the data into the database
-        await conn.query('insert into users (name, email, password) values (?,?,?)', [name, email,  hashedPassword]);
+        const response = await conn.query('insert into users (name, email, password) values (?,?,?)', [name, email,  hashedPassword]);
+        const userId = response.insertId;
+
+        const payload = {
+            id: userId
+        }
+        const generatedToken = generateToken(payload);
+        console.log(`Token has been generated = ${generatedTokentoken}`);
+
         
         // return response
         return res.status(201).json({
             success: true,
             message: "You have signed up",
+            token: generatedToken
         });
     } catch(err) {
         console.error(err);
