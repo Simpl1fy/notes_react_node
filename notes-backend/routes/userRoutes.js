@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const { generateToken, jwtAuthMiddleware } = require('./../jwt');
 
 const conn = require('./../connection');
+const { generateToken, jwtAuthMiddleware } = require('./../jwt');
 
 const saltRounds=10;
 
