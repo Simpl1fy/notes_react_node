@@ -3,7 +3,7 @@ const cors = require('cors');
 require('dotenv').config();
 const bodyParser = require('body-parser');
 const conn = require('./connection');
-// const [generateToken, jwtAuthMiddleware] = require('./jwt');
+const { generateToken, jwtAuthMiddleware } = require('./jwt');
 
 const app = express();
 
@@ -38,6 +38,9 @@ app.get('/', (req, res) => {
 
 const userRoutes = require('./routes/userRoutes');
 app.use('/', userRoutes);
+
+const noteRoutes = require('./routes/notesRoutes');
+app.use('/', noteRoutes);
 
 
 const PORT = process.env.PORT;

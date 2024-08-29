@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const { generateToken, jwtAuthMiddleware } = require('./../jwt');
 
 const conn = require('./../connection');
+const { generateToken, jwtAuthMiddleware } = require('./../jwt');
 
 const saltRounds=10;
 
@@ -38,7 +38,7 @@ router.post('/signup', async(req, res) => {
             id: userId
         }
         const generatedToken = generateToken(payload);
-        console.log(`Token has been generated = ${generatedTokentoken}`);
+        console.log(`Token has been generated = ${generatedToken}`);
 
         
         // return response
