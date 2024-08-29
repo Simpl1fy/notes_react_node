@@ -3,7 +3,7 @@ const cors = require('cors');
 require('dotenv').config();
 const bodyParser = require('body-parser');
 const conn = require('./connection');
-
+// const [generateToken, jwtAuthMiddleware] = require('./jwt');
 
 const app = express();
 
