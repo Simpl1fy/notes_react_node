@@ -38,7 +38,7 @@ router.post('/signup', async(req, res) => {
             id: userId
         }
         const generatedToken = generateToken(payload);
-        console.log(`Token has been generated = ${generatedTokentoken}`);
+        console.log(`Token has been generated = ${generatedToken}`);
 
         
         // return response
