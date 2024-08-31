@@ -36,5 +36,28 @@ router.post('/note/submit', jwtAuthMiddleware, async (req, res) => {
     }
 })
 
+router.get('/note/show', jwtAuthMiddleware, async(req, res) => { 
+    try {
+        const userId = req.jwtPayload.id;
+        const [rows] = await conn.query('select * from notes where user_id=?', [userId]);
+        if(rows.length > 0) {
+            return res.status(200).json({
+                notes: rows
+            })
+        } else {
+            return res.status(404).json({
+                message: "No notes found"
+            })
+        }
+    } catch(err) {
+        console.error(err);
+        return res.status(500).json({
+            success: false,
+            message: "Internal Server Error",
+            error: err.message
+        })
+    }
+})
+
 
 module.exports = router;
