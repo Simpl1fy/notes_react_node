@@ -15,13 +15,17 @@ router.post('/note/submit', jwtAuthMiddleware, async (req, res) => {
                 message: "Please fill out all the fields"
             })
         } 
-        const res = await conn.query('insert into notes (user_id, heading, content) values (?, ?, ?)', [userId, heading, content]);
-
-        return res.status(200).json({
+        const response = await conn.query('insert into notes (user_id, heading, content) values (?, ?, ?)', [userId, heading, content]);
+        console.log(response);
+        if(response) {return res.status(200).json({
             success: true,
             message: "Your note has been saved successfully"
-        })
-
+        })} else {
+            return res.status(500).json({
+                success: false,
+                message: "Internal server error!" 
+            })
+        }
     } catch(err) {
         console.error(err);
         res.status(500).json({
