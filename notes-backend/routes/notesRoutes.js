@@ -10,7 +10,7 @@ router.post('/note/submit', jwtAuthMiddleware, async (req, res) => {
        console.log(userId);
        const { heading, content } = req.body;
        if(!heading || !content) {
-            return res.status(400).json({
+            return res.status(102).json({
                 success: false,
                 message: "Please fill out all the fields"
             })

@@ -1,7 +1,6 @@
 import Modal from "react-modal";
 import { Link } from "react-router-dom";
 
-Modal.setAppElement("#root");
 
 export default function SuccessModal({ isOpen, onRequestClose, message }) {
   return (

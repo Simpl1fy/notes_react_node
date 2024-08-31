@@ -2,7 +2,16 @@
 import Modal from "react-modal";
 import { Link } from "react-router-dom";
 
-Modal.setAppElement("#root");
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+  },
+};
 
 export default function FailureModal({ isOpen, onRequestClose, message, link }) {
   return (
@@ -10,7 +19,7 @@ export default function FailureModal({ isOpen, onRequestClose, message, link }) 
       <Modal
         isOpen={isOpen}
         onRequestClose={onRequestClose}
-        style={{ width: "50px" }}
+        style={customStyles}
       >
         <div className="d-flex flex-column align-content-center justify-content-center">
           <div className="heading">

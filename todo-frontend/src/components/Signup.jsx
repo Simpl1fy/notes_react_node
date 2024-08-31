@@ -31,9 +31,9 @@ export default function Signup() {
       console.log(res.data.success);
       console.log(res.data.message);
       setMessage(res.data.message);
-      const generatedToken = res.data.token;
-      localStorage.setItem('token', generatedToken);
       if(res.data.success) {
+        const generatedToken = res.data.token;
+        localStorage.setItem('token', generatedToken);
         openModal(setSuccessModalIsOpen);
       } else {
         openModal(setFailureModalIsOpen);
