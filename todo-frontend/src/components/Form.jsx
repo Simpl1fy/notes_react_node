@@ -43,11 +43,11 @@ function Form() {
   return (
     <>
       {alert ? <AlertComponent severity={severity} text={text} close={closeAlert} success={success} /> : <></>}
-      <div className="form-container px-3 py-3 bg-primary vh-100">
+      <div className="form-container px-3 py-3 bg-primary vh-100 vw-50">
         <form className="px-auto border border-2 border-dark p-3 rounded-4 bg-light" onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="heading" className="form-label">
-              Heading
+              <strong>Heading</strong>
             </label>
             <input
               type="text"
@@ -59,12 +59,12 @@ function Form() {
           </div>
           <div className="mb-3">
             <label htmlFor="explanation" className="form-label">
-              Explanation
+              <strong>Explanation</strong>
             </label>
             <textarea
               name="explain"
               id="explanationBox"
-              className="form-control"
+              className="form-control form-control-lg"
               rows="5"
               onChange={(e) => setContent(e.target.value)}
             ></textarea>
