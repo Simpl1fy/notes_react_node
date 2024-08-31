@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import axios from 'axios';
-
+import { SuccessAlert, FailureAlert } from './Alertfile';
 
 function Form() {
   const [heading, setHeading] = useState('');
@@ -21,8 +21,10 @@ function Form() {
     const res = await axios.post('http://localhost:5000/note/submit', bodyParameters, config)
     if(res.data.success) {
       console.log("Your note has been saved successfully");
+      <SuccessAlert />
     } else {
       console.log("It was not success!");
+      <FailureAlert />
     }
   }
 

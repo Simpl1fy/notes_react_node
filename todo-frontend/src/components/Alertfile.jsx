@@ -5,7 +5,7 @@ import ErrorIcon from '@mui/icons-material/Error';
 
 function SuccessAlert() {
   return (
-    <Alert icon={<CheckIcon fontSize="inherit" />} severity="success" onClose={() => {}} >
+    <Alert variant='filled' icon={<CheckIcon fontSize="inherit" />} severity="success" onClose={() => {}} >
         Your note has been saved successfully
     </Alert>
   )
@@ -13,7 +13,7 @@ function SuccessAlert() {
 
 function FailureAlert() {
     return (
-    <Alert icon={<ErrorIcon fontSize="inherit" />} severity="error" onClose={() => {}} >
+    <Alert variant='filled' icon={<ErrorIcon fontSize="inherit" />} severity="error" onClose={() => {}} >
         Note could not be saved
     </Alert>
     )
