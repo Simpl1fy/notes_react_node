@@ -19,11 +19,11 @@ router.post('/note/submit', jwtAuthMiddleware, async (req, res) => {
         console.log(response);
         if(response) {return res.status(200).json({
             success: true,
-            message: "Your note has been saved successfully"
+            message: "Your note has been saved successfully!"
         })} else {
             return res.status(500).json({
                 success: false,
-                message: "Internal server error!" 
+                message: "Your note could not be saved!" 
             })
         }
     } catch(err) {
