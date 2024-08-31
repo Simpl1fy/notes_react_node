@@ -5,7 +5,7 @@ import ErrorIcon from '@mui/icons-material/Error';
 
 export default function AlertComponent(props) {
   return (
-    <Alert variant='filled' icon={props.success ? <CheckIcon fontSize="inherit"/> : <ErrorIcon fontSize="inherit" />} severity={props.severity} onClose={props.close} >
+    <Alert variant='outlined' icon={props.success ? <CheckIcon fontSize="inherit"/> : <ErrorIcon fontSize="inherit" />} severity={props.severity} onClose={props.close} >
         {props.text}
     </Alert>
   )
