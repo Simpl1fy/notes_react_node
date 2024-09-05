@@ -43,7 +43,7 @@ function Form() {
   return (
     <>
       {alert ? <AlertComponent severity={severity} text={text} close={closeAlert} success={success} /> : <></>}
-      <div className="form-container px-3 py-3 bg-primary vh-100 vw-50">
+      <div className="form-container px-3 py-3">
         <form className="px-auto border border-2 border-dark p-3 rounded-4 bg-light" onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="heading" className="form-label">

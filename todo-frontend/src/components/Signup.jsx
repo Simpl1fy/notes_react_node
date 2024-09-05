@@ -57,7 +57,7 @@ export default function Signup() {
     }
   }
   return (
-    <div className="form-container bg-primary vh-100 px-3 py-3 d-flex justify-content-center align-items-center">
+    <div className="form-container px-3 py-3 d-flex justify-content-center align-items-center">
       <form className="bg-light px-3 py-3 border border-2 rounded-2 border-dark w-25" onSubmit={handleSubmit} action="" method="post">
         <h2 className="mb-3">Signup</h2>
         <div className="mb-3">
