@@ -1,19 +1,5 @@
-import { Box, Typography, Modal, Button } from "@mui/material";
+import {Modal, Button} from 'react-bootstrap'
 import { useNavigate } from "react-router-dom";
-
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: '25vw',
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  borderRadius: '10px',
-  boxShadow: 24,
-  p: 4,
-};
-
 
 export default function SuccessModal({ isOpen, onRequestClose, message }) {
   
@@ -27,20 +13,20 @@ export default function SuccessModal({ isOpen, onRequestClose, message }) {
   return (
     <div>
       <Modal
-        open={isOpen}
-        onClose={onRequestClose}
+        show={isOpen}
+        onHide={onRequestClose}
+        backdrop="static"
+        keyboard={false}
       >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h3" component="h6">
-            Success
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt:2, mb:2 }}>
-            {message}
-          </Typography>
-          <Button onClick={handleClick} variant="contained">
-            Go to Home Page
-          </Button>
-        </Box>
+        <Modal.Header closeButton>
+          <Modal.Title>Success</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {message}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant='primary' onClick={handleClick}>Go to Home</Button>
+        </Modal.Footer>
       </Modal>
     </div>
   );

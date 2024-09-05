@@ -1,43 +1,33 @@
 // import React from 'react'
-import Modal from "react-modal";
-import { Link } from "react-router-dom";
-
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  },
-};
+import {Modal, Button} from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 export default function FailureModal({ isOpen, onRequestClose, message, link }) {
+
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    onRequestClose();
+    navigate(link);
+  }
+
   return (
     <div>
       <Modal
-        isOpen={isOpen}
-        onRequestClose={onRequestClose}
-        style={customStyles}
+        show={isOpen}
+        onHide={onRequestClose}
+        backdrop="static"
+        keyboard={false}
       >
-        <div className="d-flex flex-column align-content-center justify-content-center">
-          <div className="heading">
-            <h2>
-              <strong>Failed</strong>
-            </h2>
-          </div>
-          <div>{message}</div>
-
-          <Link
-            to={link}
-            onClick={onRequestClose}
-            className="btn btn-primary"
-            style={{ textDecoration: "none", color: "white" }}
-          >
-            Try Again
-          </Link>
-        </div>
+        <Modal.Header closeButton>
+          Failed
+        </Modal.Header>
+        <Modal.Body>
+          {message}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={handleClick}>Try Again</Button>
+        </Modal.Footer>
       </Modal>
     </div>
   )
