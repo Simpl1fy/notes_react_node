@@ -28,7 +28,13 @@ const jwtAuthMiddleware = (req, res, next) => {
 
     } catch (err) {
         console.error(err);
-        res.status(401).json({"error": "authorization denied"})
+        if (err.name === 'TokenExpiredError') {
+            return res.status(401).json({"Error": "Token Expired"});
+        } else if(err.name === 'JsonWebTokenError') {
+            return res.status(401).json({"Error": "Invalid Token"});
+        } else {
+            return res.status(401).json({"Error": "Authorization Denied"});
+        }
     }
 
 }
