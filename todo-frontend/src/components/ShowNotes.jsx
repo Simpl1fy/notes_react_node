@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import axios from "axios";
-import { Box } from "@mui/material";
+import { Card } from "react-bootstrap";
 
 export default function ShowNotes() {
   const [notes, setNotes] = useState([]);
@@ -11,8 +11,9 @@ export default function ShowNotes() {
         const res = await axios.get('http://localhost:5000/note/show', {
           headers: {Authorization: `Bearer ${token}`}
         });
-        if (res.length > 0) {
-          setNotes(res);
+        console.log(res.data);
+        if (res.data.length > 0) {
+          setNotes(res.data);
         }
       } catch(err) {
         console.error(err);
@@ -21,15 +22,24 @@ export default function ShowNotes() {
     showNotes();
   }, [token])   
   return (
-    <div>
+    <div style={{marginLeft: '20px'}}>
       <h3>Your Notes</h3>
-      {notes && notes.map((note, index) => (
-        <div key={index}>
-          <Box>
-            Hello World
-          </Box>
-        </div>
-      ))}
+      <div className="d-flex">
+        {notes.length > 0 ?
+        <>
+          {notes.map((note, index) => (
+            <Card style={{width: '18rem', margin:'5px'}} key={index}>
+              <Card.Body>
+                <Card.Title>{note.heading}</Card.Title>
+                <Card.Text>{note.content}</Card.Text>
+              </Card.Body>
+            </Card>
+          ))}
+        </> : <>
+          <h6>No notes found</h6>
+        </>
+        }
+      </div>
     </div>
   )
 }
