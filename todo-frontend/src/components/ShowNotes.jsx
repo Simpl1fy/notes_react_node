@@ -4,7 +4,7 @@ import { Card, Button } from "react-bootstrap";
 import DeleteIcon from '@mui/icons-material/Delete';
 
 
-export default function ShowNotes({ formSubmitted, handleChange }) {
+export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggleToast }) {
   const [notes, setNotes] = useState([]);
   const token = localStorage.getItem('token');
   useEffect(() => {
@@ -31,10 +31,19 @@ export default function ShowNotes({ formSubmitted, handleChange }) {
       console.log(res);
       if(res.data.success) {
         console.log("deletion successful");
-        handleChange();
+        setNotes((prevNotes) => {
+          const updatedNotes = prevNotes.filter((note) => note.notes_id !== id);
+          console.log(`Updated Notes = ${updatedNotes}`);
+          return updatedNotes;
+        })
+        setSuccess(true);
+        setMessage(res.data.message);
       } else {
         console.log("failed");
+        setSuccess(false);
+        setMessage(res.data.message);
       }
+      toggleToast();
     } catch(err) {
       console.error(err);
     }

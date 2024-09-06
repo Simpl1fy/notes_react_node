@@ -62,11 +62,13 @@ router.post('/note/delete/:note_id', async(req, res) => {
         console.log(result);
         if(result.affectedRows === 1) {
             return res.status(200).json({
-                success: true
+                success: true,
+                message: "Your Note has been deleted successfully!"
             });
         } else {
             return res.status(404).json({
-                success: false
+                success: false,
+                message: "Your Note could not be deleted! Try again later"
             })
         }
     } catch(err) {

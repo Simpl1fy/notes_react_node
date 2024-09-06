@@ -1,19 +1,12 @@
 import { useState } from 'react'
 import axios from 'axios';
-import AlertComponent from './Alertfile';
 
-function Form({ handleChange }) {
+function Form({ handleChange, setSuccess, setMessage, toggleToast }) {
   const [heading, setHeading] = useState('');
   const [content, setContent] = useState('');
-  const [alert, setAlert] = useState(false);
-  const [severity, setSeverity] = useState('');
-  const [text, setText] = useState('')
-  const [success, setSuccess] = useState(false);
 
 
   const token = localStorage.getItem('token')
-
-  const closeAlert = () => setAlert(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -27,23 +20,19 @@ function Form({ handleChange }) {
     const res = await axios.post('http://localhost:5000/note/submit', bodyParameters, config)
     if(res.data.success) {
       console.log("Your note has been saved successfully");
-      setAlert(true);
-      setSeverity('success')
-      setSuccess(true);
-      setText(res.data.message);
       handleChange();
+      setSuccess(true);
+      setMessage(res.data.message);
     } else {
       console.log("It was not success!");
-      setAlert(false);
       setSuccess(false);
-      setSeverity('error')
-      setText(res.data.message);
+      setMessage(res.data.message);
     }
+    toggleToast();
   }
 
   return (
     <>
-      {alert ? <AlertComponent severity={severity} text={text} close={closeAlert} success={success} /> : <></>}
       <div className="form-container px-3 py-3">
         <form className="px-auto border border-2 border-dark p-3 rounded-4 bg-light" onSubmit={handleSubmit}>
           <div className="mb-3">
