@@ -1,11 +1,12 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import Navbar from './components/navbar'
+import Navbar from './components/Navbar'
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom"
 import ErrorPage from './error-page'
 import Signup from './components/Signup'
 import Login from './components/Login'
 import Home from './components/Home'
+import Profile from './components/Profile'
 
 
 const router = createBrowserRouter([
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />
+      },
+      {
+        path: "/profile",
+        element: <Profile />
       },
       {
         index: true,
