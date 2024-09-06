@@ -7,6 +7,7 @@ import Form from './components/Form'
 import Signup from './components/Signup'
 import Login from './components/Login'
 import ShowNotes from './components/ShowNotes'
+import Home from './components/Home'
 
 
 const router = createBrowserRouter([
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/home",
-        element: <><Form /><ShowNotes /></>,
+        element: <Home />
       },
       {
         path: "/signup",

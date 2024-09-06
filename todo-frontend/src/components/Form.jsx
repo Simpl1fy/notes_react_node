@@ -2,7 +2,7 @@ import { useState } from 'react'
 import axios from 'axios';
 import AlertComponent from './Alertfile';
 
-function Form() {
+function Form({ handleChange }) {
   const [heading, setHeading] = useState('');
   const [content, setContent] = useState('');
   const [alert, setAlert] = useState(false);
@@ -31,6 +31,7 @@ function Form() {
       setSeverity('success')
       setSuccess(true);
       setText(res.data.message);
+      handleChange();
     } else {
       console.log("It was not success!");
       setAlert(false);
