@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
 import axios from "axios";
-import { Card } from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 export default function ShowNotes({ formSubmitted }) {
   const [notes, setNotes] = useState([]);
@@ -21,6 +23,14 @@ export default function ShowNotes({ formSubmitted }) {
     showNotes();
   }, [token, formSubmitted]);
 
+  const deleteNote = (id) => {
+    try {
+      
+    } catch(err) {
+      console.error(err);
+    }
+  }
+
 
   return (
     <div style={{marginLeft: '20px'}}>
@@ -34,6 +44,7 @@ export default function ShowNotes({ formSubmitted }) {
                 <Card.Title>{note.heading}</Card.Title>
                 <Card.Text>{note.content}</Card.Text>
               </Card.Body>
+              <Button variant="danger" style={{width:'5rem', marginLeft:'5px', marginBottom:'5px'}} onClick={() => deleteNote(note.notes_id)}><DeleteIcon /></Button>
             </Card>
           ))}
         </> : <>

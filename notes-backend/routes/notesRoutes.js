@@ -7,7 +7,6 @@ const conn = require('./../connection');
 router.post('/note/submit', jwtAuthMiddleware, async (req, res) => {
     try {
        const userId = req.jwtPayload.id;
-       console.log(userId);
        const { heading, content } = req.body;
        if(!heading || !content) {
             return res.status(102).json({
@@ -16,7 +15,6 @@ router.post('/note/submit', jwtAuthMiddleware, async (req, res) => {
             })
         } 
         const response = await conn.query('insert into notes (user_id, heading, content) values (?, ?, ?)', [userId, heading, content]);
-        console.log(response);
         if(response) {return res.status(200).json({
             success: true,
             message: "Your note has been saved successfully!"
@@ -45,6 +43,30 @@ router.get('/note/show', jwtAuthMiddleware, async(req, res) => {
         } else {
             return res.status(404).json({
                 message: "No notes found"
+            })
+        }
+    } catch(err) {
+        console.error(err);
+        return res.status(500).json({
+            success: false,
+            message: "Internal Server Error",
+            error: err.message
+        })
+    }
+})
+
+router.post('/note/delete/:note_id', async(req, res) => {
+    const id = req.params.note_id;
+    try {
+        const result = await conn.query('delete from notes where notes_id=?', [id]);
+        console.log(result);
+        if(result.length > 0) {
+            return res.status(200).json({
+                success: true
+            });
+        } else {
+            return res.status(404).json({
+                success: false
             })
         }
     } catch(err) {
