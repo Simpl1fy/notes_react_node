@@ -41,7 +41,7 @@ router.get('/note/show', jwtAuthMiddleware, async(req, res) => {
         if(rows.length > 0) {
             return res.status(200).json(rows);
         } else {
-            return res.status(404).json({
+            return res.status(200).json({
                 message: "No notes found"
             })
         }
@@ -58,9 +58,9 @@ router.get('/note/show', jwtAuthMiddleware, async(req, res) => {
 router.post('/note/delete/:note_id', async(req, res) => {
     const id = req.params.note_id;
     try {
-        const result = await conn.query('delete from notes where notes_id=?', [id]);
+        const [result] = await conn.query('delete from notes where notes_id=?', [id]);
         console.log(result);
-        if(result.length > 0) {
+        if(result.affectedRows === 1) {
             return res.status(200).json({
                 success: true
             });

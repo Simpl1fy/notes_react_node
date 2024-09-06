@@ -4,11 +4,12 @@ import { Card, Button } from "react-bootstrap";
 import DeleteIcon from '@mui/icons-material/Delete';
 
 
-export default function ShowNotes({ formSubmitted }) {
+export default function ShowNotes({ formSubmitted, handleChange }) {
   const [notes, setNotes] = useState([]);
   const token = localStorage.getItem('token');
   useEffect(() => {
     const showNotes = async () => {
+      console.log("Fetching notes");
       try {
         const res = await axios.get('http://localhost:5000/note/show', {
           headers: {Authorization: `Bearer ${token}`}
@@ -23,9 +24,17 @@ export default function ShowNotes({ formSubmitted }) {
     showNotes();
   }, [token, formSubmitted]);
 
-  const deleteNote = (id) => {
+  const deleteNote = async (id) => {
+    console.log("Deleting note with id = " + id);
     try {
-      
+      const res = await axios.post(`http://localhost:5000/note/delete/${id}`);
+      console.log(res);
+      if(res.data.success) {
+        console.log("deletion successful");
+        handleChange();
+      } else {
+        console.log("failed");
+      }
     } catch(err) {
       console.error(err);
     }

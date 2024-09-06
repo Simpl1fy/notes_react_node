@@ -13,8 +13,8 @@ export default function Home() {
   return (
     <>
         <Form handleChange={handleChange} />
-        {console.log(formSubmitted)}
-        <ShowNotes formSubmitted={formSubmitted} />
+        {console.log('formSubmitted state = ' + formSubmitted)}
+        <ShowNotes formSubmitted={formSubmitted} handleChange={handleChange} />
     </>
   )
 }
