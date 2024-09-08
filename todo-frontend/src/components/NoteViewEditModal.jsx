@@ -1,26 +1,10 @@
 // import React from 'react'
 import { Modal, Button } from "react-bootstrap";
-import axios from "axios";
-import { useState, useEffect } from "react";
+// import axios from "axios";
+// import { useState, useEffect } from "react";
 
-export default function NoteViewEditModal({ isOpen, closeModal, isDisabled, noteId }) {
+export default function NoteViewEditModal({ isOpen, closeModal, isDisabled, heading, content }) {
 
-  const [heading, setHeading] = useState('');
-  const [content, setContent] = useState('');
-
-  useEffect(() => {
-    const fetchNote = async () => {
-      try {
-        const res = await axios.get(`http://localhost:5000/note/${noteId}`);
-        console.log(res);
-        setHeading(res.data.heading);
-        setContent(res.data.content);
-      } catch(err) {
-        console.error(err);
-      }
-    }
-    fetchNote();
-  }, []);
 
   return (
     <div>
@@ -45,8 +29,6 @@ export default function NoteViewEditModal({ isOpen, closeModal, isDisabled, note
                   type="text"
                   className="form-control form-control-lg"
                   id="headingInput"
-                  placeholder="Enter the heading of your Note"
-                  onChange={(e) => setHeading(e.target.value)}
                   disabled={isDisabled}
                   value={heading}
                 />
@@ -59,9 +41,7 @@ export default function NoteViewEditModal({ isOpen, closeModal, isDisabled, note
                   name="explain"
                   id="explanationBox"
                   className="form-control"
-                  placeholder="Explanation"
                   rows="20"
-                  onChange={(e) => setContent(e.target.value)}
                   disabled={isDisabled}
                   value={content}
                 ></textarea>
