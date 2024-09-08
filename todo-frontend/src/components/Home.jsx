@@ -37,7 +37,6 @@ export default function Home() {
   return (
     <>
         <ToastFile show={showToast} onClose={toggleToast} success={success} message={message} />
-        {/* <Form handleChange={handleChange} setSuccess={setSuccess} toggleToast={toggleToast} setMessage={setMessage} /> */}
         <div className="d-flex align-items-center justify-content-center my-7"><button className="btn btn-primary m-3" onClick={() => openModal(setnewModal)}>Create a New Note</button></div>
         <ShowNotes formSubmitted={formSubmitted} setSuccess={setSuccess} setMessage={setMessage} toggleToast={toggleToast} />
         <NoteModal isOpen={newModal} closeModal={() => closeModal(setnewModal)} handleChange={handleChange} setSuccess={setSuccess} setMessage={setMessage} toggleToast={toggleToast} />

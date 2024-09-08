@@ -2,6 +2,8 @@ import { useState, useEffect } from "react"
 import axios from "axios";
 import { Card, Button } from "react-bootstrap";
 import DeleteIcon from '@mui/icons-material/Delete';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
 
 
 export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggleToast }) {
@@ -62,7 +64,11 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
                 <Card.Title>{note.heading}</Card.Title>
                 <Card.Text>{note.content}</Card.Text>
               </Card.Body>
-              <Button variant="danger" style={{width:'5rem', marginLeft:'5px', marginBottom:'5px'}} onClick={() => deleteNote(note.notes_id)}><DeleteIcon /></Button>
+              <div className="d-flex">
+                <Button variant="primary" style={{width:'3rem'}} className="flex-fill m-2"><RemoveRedEyeIcon /></Button>
+                <Button variant="primary" style={{width:'3rem'}} className="flex-fill m-2"><ModeEditIcon /></Button>
+                <Button variant="danger" style={{width:'3rem'}} onClick={() => deleteNote(note.notes_id)} className="flex-fill m-2"><DeleteIcon /></Button>
+              </div>
             </Card>
           ))}
         </> : <>
