@@ -37,6 +37,11 @@ router.post('/note/submit', jwtAuthMiddleware, async (req, res) => {
 router.get('/note/show', jwtAuthMiddleware, async(req, res) => { 
     try {
         const userId = req.jwtPayload.id;
+        if(!userId) {
+            return res.json({
+                message: "No Notes Yet!"
+            })
+        }
         const [rows] = await conn.query('select * from notes where user_id=?', [userId]);
         if(rows.length > 0) {
             return res.status(200).json(rows);

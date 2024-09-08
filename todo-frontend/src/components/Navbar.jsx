@@ -16,10 +16,11 @@ function Navbar() {
 
     // Listen for storage changes in case the token is modified outside the current tab
     window.addEventListener('storage', updateToken);
+    console.log(token);
 
     return () => {
       window.removeEventListener('storage', updateToken);
-    };
+    }
   }, [])
 
 
@@ -38,10 +39,11 @@ function Navbar() {
         <div className="container-fluid  d-flex justify-content-between align-items-center">
             <Link to={"/home"} className="text-decoration-none navbar-brand">Notes - Create your own notes and save them</Link>
             {token === null ?
-            <div>
-            <Link to={"/signup"}><button type="submit" className="btn btn-primary mx-2">Signup</button></Link>
-            <Link to={"/login"}><button type="submit" className="btn btn-success mx-2">Login</button></Link>
-          </div> : <>
+              <div>
+                <Link to={"/signup"}><button type="submit" className="btn btn-primary mx-2">Signup</button></Link>
+                <Link to={"/login"}><button type="submit" className="btn btn-success mx-2">Login</button></Link>
+              </div> : 
+              <>
               <Dropdown>
                 <Dropdown.Toggle
                   variant="info"
@@ -49,7 +51,7 @@ function Navbar() {
                   className="d-flex align-items-center"
                   style={{ backgroundColor: 'transparent', border: 'none' }}
                 >
-                  <AccountCircleOutlinedIcon className="mr-5" color="info" fontSize="large" />
+                  <AccountCircleOutlinedIcon className="mr-5" color="info" fontSize="medium" />
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item><Link to={'/profile'} className="text-decoration-none text-light">Profile</Link></Dropdown.Item>
