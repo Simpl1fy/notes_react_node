@@ -3,21 +3,23 @@ import { Modal, Button } from "react-bootstrap";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-export default function NoteViewEditModal({ isOpen, closeModal, isDisabled, id }) {
+export default function NoteViewEditModal({ isOpen, closeModal, isDisabled, noteId }) {
 
   const [heading, setHeading] = useState('');
   const [content, setContent] = useState('');
 
   useEffect(() => {
-    console.log(id);
-    try {
-      const res = axios.get(`http://localhost:5000/note/${id}`);
-      console.log(res);
-      setHeading(res.data.heading);
-      setContent(res.data.content);
-    } catch(err) {
-      console.error(err);
+    const fetchNote = async () => {
+      try {
+        const res = await axios.get(`http://localhost:5000/note/${noteId}`);
+        console.log(res);
+        setHeading(res.data.heading);
+        setContent(res.data.content);
+      } catch(err) {
+        console.error(err);
+      }
     }
+    fetchNote();
   }, []);
 
   return (
