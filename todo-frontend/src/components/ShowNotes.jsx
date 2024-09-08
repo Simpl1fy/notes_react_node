@@ -42,7 +42,7 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
       }
     }
     showNotes();
-  }, [token, formSubmitted, notes]);
+  }, [token, formSubmitted]);
 
   const deleteNote = async (id) => {
     console.log("Deleting note with id = " + id);
@@ -76,7 +76,7 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
     openModal();
   }
 
-  const handleEdit = () => {
+  const handleEdit = (heading, content) => {
     setDisabled(false);
     setHeading(heading);
     setContent(content);

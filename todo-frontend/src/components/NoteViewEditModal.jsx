@@ -1,10 +1,18 @@
 // import React from 'react'
 import { Modal, Button } from "react-bootstrap";
-// import axios from "axios";
-// import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export default function NoteViewEditModal({ isOpen, closeModal, isDisabled, heading, content }) {
 
+  const [editHeading, setEditHeading] = useState('');
+  const [editContent, setEditContent] = useState('');
+
+  useEffect(() => {
+    console.log(heading);
+    console.log(content);
+    setEditHeading(heading);
+    setEditContent(content);
+  }, [heading, content, isOpen])
 
   return (
     <div>
@@ -27,8 +35,9 @@ export default function NoteViewEditModal({ isOpen, closeModal, isDisabled, head
                   type="text"
                   className="form-control form-control-lg"
                   id="headingInput"
+                  onChange={(e) => setEditHeading(e.target.value)}
                   disabled={isDisabled}
-                  value={heading}
+                  value={editHeading}
                 />
               </div>
               <div className="mb-3">
@@ -40,8 +49,9 @@ export default function NoteViewEditModal({ isOpen, closeModal, isDisabled, head
                   id="explanationBox"
                   className="form-control"
                   rows="20"
+                  onChange={(e) => setEditContent(e.target.value)}
                   disabled={isDisabled}
-                  value={content}
+                  value={editContent}
                 ></textarea>
               </div>
             </form>
