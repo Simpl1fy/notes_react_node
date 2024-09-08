@@ -1,18 +1,41 @@
 // import React from 'react'
 import { Modal, Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
-export default function NoteViewEditModal({ isOpen, closeModal, isDisabled, heading, content }) {
+export default function NoteViewEditModal({ isOpen, closeModal, isDisabled, heading, content, noteId }) {
 
   const [editHeading, setEditHeading] = useState('');
   const [editContent, setEditContent] = useState('');
 
   useEffect(() => {
+    console.log(`Note Id is = ${noteId}`);
     console.log(heading);
     console.log(content);
     setEditHeading(heading);
     setEditContent(content);
-  }, [heading, content, isOpen])
+  }, [heading, content])
+
+
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    const updatedData = {
+      heading: editHeading,
+      content: editContent
+    }
+    try {
+      const res = await axios.put(`http://localhost:5000/note/update/${noteId}`, updatedData);
+      console.log(res);
+      if(res.data.success) {
+        console.log("Your note has been updated successfully");
+        closeModal();
+      } else {
+        console.log("Failed");
+      }
+    } catch(err) {
+      console.error(err);
+    }
+  }
 
   return (
     <div>
@@ -63,7 +86,7 @@ export default function NoteViewEditModal({ isOpen, closeModal, isDisabled, head
               <Button variant='danger' onClick={closeModal}>Close</Button>
             </> :
             <>
-              <Button variant='primary'>Save</Button>
+              <Button variant='primary' onClick={handleUpdate}>Update</Button>
               <Button variant='danger' onClick={closeModal}>Close</Button>
             </>
           }

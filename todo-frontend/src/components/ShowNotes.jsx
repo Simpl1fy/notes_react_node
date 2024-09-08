@@ -20,6 +20,7 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
   const [disabled, setDisabled] = useState(false);
   const [heading, setHeading] = useState('');
   const [content, setContent] = useState('');
+  const [noteId, setNoteId] = useState(0);
 
   // functions for toggling modal
   const openModal = () => setModalIsOpen(true);
@@ -76,10 +77,11 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
     openModal();
   }
 
-  const handleEdit = (heading, content) => {
+  const handleEdit = (heading, content, id) => {
     setDisabled(false);
     setHeading(heading);
     setContent(content);
+    setNoteId(id);
     openModal();
   }
 
@@ -98,7 +100,7 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
               </Card.Body>
               <div className="d-flex">
                 <Button variant="primary" style={{width:'3rem'}} className="flex-fill m-2" onClick={() => handleView(note.heading, note.content)} ><RemoveRedEyeIcon /></Button>
-                <Button variant="primary" style={{width:'3rem'}} className="flex-fill m-2" onClick={() => handleEdit(note.heading, note.content)}><ModeEditIcon /></Button>
+                <Button variant="primary" style={{width:'3rem'}} className="flex-fill m-2" onClick={() => handleEdit(note.heading, note.content, note.notes_id)}><ModeEditIcon /></Button>
                 <Button variant="danger" style={{width:'3rem'}} onClick={() => deleteNote(note.notes_id)} className="flex-fill m-2"><DeleteIcon /></Button>
               </div>
             </Card>
@@ -108,7 +110,7 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
         </>
         }
       </div>
-      <NoteViewEditModal isOpen={isOpen} closeModal={closeModal} isDisabled={disabled} heading={heading} content={content} />
+      <NoteViewEditModal isOpen={isOpen} closeModal={closeModal} isDisabled={disabled} heading={heading} content={content} noteId={noteId} />
     </div>
   )
 }
