@@ -63,7 +63,7 @@ export default function NoteModal({ isOpen, closeModal, handleChange, setSuccess
                   type="text"
                   className="form-control form-control-lg"
                   id="headingInput"
-                  placeholder="Enter the heading of your task"
+                  placeholder="Enter the heading of your Note"
                   onChange={(e) => setHeading(e.target.value)}
                 />
               </div>
@@ -75,7 +75,8 @@ export default function NoteModal({ isOpen, closeModal, handleChange, setSuccess
                   name="explain"
                   id="explanationBox"
                   className="form-control"
-                  rows="5"
+                  placeholder="Explanation"
+                  rows="20"
                   onChange={(e) => setContent(e.target.value)}
                 ></textarea>
               </div>

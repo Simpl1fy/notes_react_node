@@ -59,13 +59,13 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
         {notes.length > 0 ?
         <>
           {notes.map((note, index) => (
-            <Card style={{width: '15rem', height:'15rem', marginRight:'5px', marginTop:'5px'}} key={index}>
+            <Card style={{width: '12rem', height:'15rem', marginRight:'5px', marginTop:'5px'}} key={index}>
               <Card.Body>
                 <Card.Title>{note.heading}</Card.Title>
                 <Card.Text>{note.content}</Card.Text>
               </Card.Body>
               <div className="d-flex">
-                <Button variant="primary" style={{width:'3rem'}} className="flex-fill m-2"><RemoveRedEyeIcon /></Button>
+                <Button variant="primary" style={{width:'3rem'}} className="flex-fill m-2" ><RemoveRedEyeIcon /></Button>
                 <Button variant="primary" style={{width:'3rem'}} className="flex-fill m-2"><ModeEditIcon /></Button>
                 <Button variant="danger" style={{width:'3rem'}} onClick={() => deleteNote(note.notes_id)} className="flex-fill m-2"><DeleteIcon /></Button>
               </div>

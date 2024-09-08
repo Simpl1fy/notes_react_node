@@ -19,6 +19,7 @@ export default function Home() {
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState(false);
 
+
   const handleChange = () => {
     // changing the state from true to false and vice versa everytime the function is called, resulting in re-render of the ShowNotes component
     setFormSubmitted(prevState => !prevState);
@@ -28,6 +29,7 @@ export default function Home() {
   const openModal = (setState) => {
     setState(true);
   }
+
   const closeModal = (setState) => {
     setState(false);
   }
