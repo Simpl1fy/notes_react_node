@@ -87,4 +87,26 @@ router.post('/note/delete/:note_id', async(req, res) => {
 })
 
 
+router.get('/note/:id', async(req, res) => {
+    const note_id = req.params.id;
+    try {
+        const [result] = await conn.query('select * from notes where notes_id=?', [note_id]);
+        if (result.length > 0) {
+            return res.status(200).json(rows)
+        } else {
+            return res.status(200).json({
+                message: "No such note found!"
+            })
+        }
+    } catch(err){
+        console.error(err);
+        return res.status(500).json({
+            success: false,
+            message: "Internal Server Error",
+            error: err.message
+        })
+    }
+})
+
+
 module.exports = router;
