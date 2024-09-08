@@ -27,10 +27,12 @@ export default function NoteModal({ isOpen, closeModal, handleChange, setSuccess
       handleChange();
       setSuccess(true);
       setMessage(res.data.message);
+      closeModal();
     } else {
       console.log("It was not success!");
       setSuccess(false);
       setMessage(res.data.message);
+      closeModal();
     }
     toggleToast();
   }
@@ -45,6 +47,7 @@ export default function NoteModal({ isOpen, closeModal, handleChange, setSuccess
         onHide={closeModal}
         backdrop="static"
         keyboard={false}
+        size='xl'
       >
         <Modal.Header closeButton>
           <Modal.Title>Create a New Note</Modal.Title>
@@ -58,7 +61,7 @@ export default function NoteModal({ isOpen, closeModal, handleChange, setSuccess
                 </label>
                 <input
                   type="text"
-                  className="form-control"
+                  className="form-control form-control-lg"
                   id="headingInput"
                   placeholder="Enter the heading of your task"
                   onChange={(e) => setHeading(e.target.value)}
