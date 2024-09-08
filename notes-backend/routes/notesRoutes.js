@@ -4,6 +4,8 @@ const router = express.Router();
 
 const conn = require('./../connection');
 
+
+// route for submitting a note
 router.post('/note/submit', jwtAuthMiddleware, async (req, res) => {
     try {
        const userId = req.jwtPayload.id;
@@ -34,6 +36,8 @@ router.post('/note/submit', jwtAuthMiddleware, async (req, res) => {
     }
 })
 
+
+// route for getting all notes
 router.get('/note/show', jwtAuthMiddleware, async(req, res) => { 
     try {
         const userId = req.jwtPayload.id;
@@ -60,6 +64,8 @@ router.get('/note/show', jwtAuthMiddleware, async(req, res) => {
     }
 })
 
+
+// route for deleting a note
 router.post('/note/delete/:note_id', async(req, res) => {
     const id = req.params.note_id;
     try {
@@ -87,6 +93,8 @@ router.post('/note/delete/:note_id', async(req, res) => {
 })
 
 
+
+// currently not being used
 router.get('/note/:id', async(req, res) => {
     const note_id = req.params.id;
     try {
@@ -108,5 +116,32 @@ router.get('/note/:id', async(req, res) => {
     }
 })
 
+
+// route for updation of a note
+router.put('/note/update/:id', async (req, res) => {
+    const note_id = req.params.id;
+    const { heading, content } = req.body;
+    try {
+        const [result] = await conn.query('update notes set heading=?, content=? where notes_id=?', [heading, content, note_id]);
+        if (result.affectedRows !== 0) {
+            return res.status(200).json({
+                success: true,
+                message: "Your note has been Updated Successfully"
+            })
+        } else {
+            return res.status(200).json({
+                success: false,
+                message: "Your note could not be updated! Try again later."
+            })
+        }
+    } catch(err) {
+        console.error(err);
+        return res.status(500).json({
+            success: false,
+            message: "Internal Server Error",
+            error: err.message
+        })
+    }
+})
 
 module.exports = router;
