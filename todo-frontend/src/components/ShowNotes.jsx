@@ -42,7 +42,7 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
       }
     }
     showNotes();
-  }, [token, formSubmitted]);
+  }, [token, formSubmitted, notes]);
 
   const deleteNote = async (id) => {
     console.log("Deleting note with id = " + id);
@@ -76,6 +76,13 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
     openModal();
   }
 
+  const handleEdit = () => {
+    setDisabled(false);
+    setHeading(heading);
+    setContent(content);
+    openModal();
+  }
+
 
   return (
     <div style={{marginLeft: '20px'}}>
@@ -91,7 +98,7 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
               </Card.Body>
               <div className="d-flex">
                 <Button variant="primary" style={{width:'3rem'}} className="flex-fill m-2" onClick={() => handleView(note.heading, note.content)} ><RemoveRedEyeIcon /></Button>
-                <Button variant="primary" style={{width:'3rem'}} className="flex-fill m-2"><ModeEditIcon /></Button>
+                <Button variant="primary" style={{width:'3rem'}} className="flex-fill m-2" onClick={() => handleEdit(note.heading, note.content)}><ModeEditIcon /></Button>
                 <Button variant="danger" style={{width:'3rem'}} onClick={() => deleteNote(note.notes_id)} className="flex-fill m-2"><DeleteIcon /></Button>
               </div>
             </Card>

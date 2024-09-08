@@ -11,8 +11,6 @@ export default function NoteViewEditModal({ isOpen, closeModal, isDisabled, head
       <Modal
         show={isOpen}
         onHide={closeModal}
-        backdrop="static"
-        keyboard={false}
         size='xl'
       >
         <Modal.Header closeButton>
@@ -50,8 +48,15 @@ export default function NoteViewEditModal({ isOpen, closeModal, isDisabled, head
         </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant='primary'>Save</Button>
-          <Button variant='danger'>Close</Button>
+          {isDisabled ?
+            <>
+              <Button variant='danger' onClick={closeModal}>Close</Button>
+            </> :
+            <>
+              <Button variant='primary'>Save</Button>
+              <Button variant='danger' onClick={closeModal}>Close</Button>
+            </>
+          }
         </Modal.Footer>
       </Modal>
     </div>
