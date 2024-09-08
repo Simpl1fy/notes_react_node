@@ -7,7 +7,7 @@ import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import NoteViewEditModal from "./NoteViewEditModal";
 
 
-export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggleToast }) {
+export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggleToast, handleChange }) {
   
   // state for storing all the notes of a user
   const [notes, setNotes] = useState([]);
@@ -110,7 +110,7 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
         </>
         }
       </div>
-      <NoteViewEditModal isOpen={isOpen} closeModal={closeModal} isDisabled={disabled} heading={heading} content={content} noteId={noteId} />
+      <NoteViewEditModal isOpen={isOpen} closeModal={closeModal} isDisabled={disabled} heading={heading} content={content} noteId={noteId} handleChange={handleChange} setSuccess={setSuccess} setMessage={setMessage} toggleToast={toggleToast} />
     </div>
   )
 }

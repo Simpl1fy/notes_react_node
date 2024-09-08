@@ -126,7 +126,7 @@ router.put('/note/update/:id', async (req, res) => {
         if (result.affectedRows !== 0) {
             return res.status(200).json({
                 success: true,
-                message: "Your note has been Updated Successfully"
+                message: "Your note has been updated Successfully"
             })
         } else {
             return res.status(200).json({

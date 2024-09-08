@@ -54,7 +54,7 @@ export default function Home() {
     <>
         <ToastFile show={showToast} onClose={toggleToast} success={success} message={message} />
         <div className="d-flex align-items-center justify-content-center my-7"><button className="btn btn-primary m-3" onClick={handleCreateNoteClick}>Create a New Note</button></div>
-        <ShowNotes formSubmitted={formSubmitted} setSuccess={setSuccess} setMessage={setMessage} toggleToast={toggleToast} />
+        <ShowNotes formSubmitted={formSubmitted} setSuccess={setSuccess} setMessage={setMessage} toggleToast={toggleToast} handleChange={handleChange} />
         <NoteModal isOpen={newModal} closeModal={() => closeModal(setnewModal)} handleChange={handleChange} setSuccess={setSuccess} setMessage={setMessage} toggleToast={toggleToast} />
     </>
   )

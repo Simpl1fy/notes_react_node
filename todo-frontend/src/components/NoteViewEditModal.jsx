@@ -3,7 +3,7 @@ import { Modal, Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function NoteViewEditModal({ isOpen, closeModal, isDisabled, heading, content, noteId }) {
+export default function NoteViewEditModal({ isOpen, closeModal, isDisabled, heading, content, noteId, setSuccess, setMessage, handleChange, toggleToast }) {
 
   const [editHeading, setEditHeading] = useState('');
   const [editContent, setEditContent] = useState('');
@@ -28,10 +28,17 @@ export default function NoteViewEditModal({ isOpen, closeModal, isDisabled, head
       console.log(res);
       if(res.data.success) {
         console.log("Your note has been updated successfully");
+        setSuccess(true);
+        setMessage(res.data.message);
+        handleChange();
         closeModal();
       } else {
         console.log("Failed");
+        setSuccess(false);
+        setMessage(res.data.message);
+        closeModal();
       }
+      toggleToast();
     } catch(err) {
       console.error(err);
     }
