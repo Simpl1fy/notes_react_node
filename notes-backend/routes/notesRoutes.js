@@ -92,7 +92,7 @@ router.get('/note/:id', async(req, res) => {
     try {
         const [result] = await conn.query('select * from notes where notes_id=?', [note_id]);
         if (result.length > 0) {
-            return res.status(200).json(rows)
+            return res.status(200).json(result)
         } else {
             return res.status(200).json({
                 message: "No such note found!"

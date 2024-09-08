@@ -91,6 +91,7 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
                 <Button variant="primary" style={{width:'3rem'}} className="flex-fill m-2"><ModeEditIcon /></Button>
                 <Button variant="danger" style={{width:'3rem'}} onClick={() => deleteNote(note.notes_id)} className="flex-fill m-2"><DeleteIcon /></Button>
               </div>
+              <NoteViewEditModal isOpen={isOpen} closeModal={closeModal} isDisabled={disabled} id={note.notes_id} />
             </Card>
           ))}
         </> : <>
@@ -98,7 +99,6 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
         </>
         }
       </div>
-      <NoteViewEditModal isOpen={isOpen} closeModal={closeModal} isDisabled={disabled} />
     </div>
   )
 }
