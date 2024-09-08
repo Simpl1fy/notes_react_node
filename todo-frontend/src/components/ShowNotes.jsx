@@ -4,11 +4,26 @@ import { Card, Button } from "react-bootstrap";
 import DeleteIcon from '@mui/icons-material/Delete';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import NoteViewEditModal from "./NoteViewEditModal";
 
 
 export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggleToast }) {
+  
+  // state for storing all the notes of a user
   const [notes, setNotes] = useState([]);
+
+  // state to store the token
   const token = localStorage.getItem('token');
+
+  // state for modal opening
+  const [isOpen, setModalIsOpen] = useState(false);
+  const [disabled, setDisabled] = useState(false);
+
+  // functions for toggling modal
+  const openModal = () => setModalIsOpen(true);
+  const closeModal = () => setModalIsOpen(false);
+
+
   useEffect(() => {
     const showNotes = async () => {
       console.log("Fetching notes");
@@ -19,6 +34,7 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
         if (res.data.length > 0) {
           setNotes(res.data);
         }
+        console.log(notes);
       } catch(err) {
         console.error(err);
       }
@@ -51,6 +67,12 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
     }
   }
 
+  const handleView = (id) => {
+    console.log(id)
+    setDisabled(true);
+    openModal();
+  }
+
 
   return (
     <div style={{marginLeft: '20px'}}>
@@ -65,7 +87,7 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
                 <Card.Text>{note.content}</Card.Text>
               </Card.Body>
               <div className="d-flex">
-                <Button variant="primary" style={{width:'3rem'}} className="flex-fill m-2" ><RemoveRedEyeIcon /></Button>
+                <Button variant="primary" style={{width:'3rem'}} className="flex-fill m-2" onClick={() => handleView(note.notes_id)} ><RemoveRedEyeIcon /></Button>
                 <Button variant="primary" style={{width:'3rem'}} className="flex-fill m-2"><ModeEditIcon /></Button>
                 <Button variant="danger" style={{width:'3rem'}} onClick={() => deleteNote(note.notes_id)} className="flex-fill m-2"><DeleteIcon /></Button>
               </div>
@@ -76,6 +98,7 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
         </>
         }
       </div>
+      <NoteViewEditModal isOpen={isOpen} closeModal={closeModal} isDisabled={disabled} />
     </div>
   )
 }
