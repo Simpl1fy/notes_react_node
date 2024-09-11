@@ -43,7 +43,7 @@ router.get('/note/show', jwtAuthMiddleware, async(req, res) => {
         const userId = req.jwtPayload.id;
         if(!userId) {
             return res.json({
-                message: "No Notes Yet!"
+                message: "No Notes Found"
             })
         }
         const [rows] = await conn.query('select * from notes where user_id=?', [userId]);

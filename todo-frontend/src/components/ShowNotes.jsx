@@ -13,7 +13,13 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
   const [notes, setNotes] = useState([]);
 
   // state to store the token
-  const token = localStorage.getItem('token');
+  const [token, setToken] = useState();
+
+  // useEffect
+  useEffect(() => {
+    const storedToken = localStorage.getItem('token');
+    setToken(storedToken);
+  }, []);
 
   // state for modal opening
   const [isOpen, setModalIsOpen] = useState(false);
@@ -21,6 +27,7 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
   const [heading, setHeading] = useState('');
   const [content, setContent] = useState('');
   const [noteId, setNoteId] = useState(0);
+  const [noNotes, setNoNotes] = useState('');
 
   // functions for toggling modal
   const openModal = () => setModalIsOpen(true);
@@ -30,6 +37,10 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
   useEffect(() => {
     const showNotes = async () => {
       console.log("Fetching notes");
+      if(!token) {
+        setNoNotes('No notes found');
+        return;
+      }
       try {
         const res = await axios.get('http://localhost:5000/note/show', {
           headers: {Authorization: `Bearer ${token}`}
@@ -106,7 +117,7 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
             </Card>
           ))}
         </> : <>
-          <h6>No notes found</h6>
+          <h6>{noNotes}</h6>
         </>
         }
       </div>

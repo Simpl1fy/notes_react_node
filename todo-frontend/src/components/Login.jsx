@@ -3,8 +3,10 @@ import { useState } from "react";
 import axios from "axios";
 import SuccessModal from "./SuccessModal";
 import FailureModal from "./FailureModal";
+import { useAuth } from "./useAuth";
 
 export default function Login() {
+  const { login } = useAuth();
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
   const [successModalIsOpen, setSuccessModalIsOpen] = useState(false);
@@ -24,13 +26,10 @@ export default function Login() {
       email: email,
       password: password
     })
-    console.log(res.status);
-    console.log(res.data.success);
-    console.log(res.data.message);
     setMessage(res.data.message);
     if(res.data.success) {
       const generatedToken = res.data.token;
-      localStorage.setItem('token', generatedToken);
+      login(generatedToken);
       openModal(setSuccessModalIsOpen);
     } else {
       openModal(setFailureModalIsOpen);

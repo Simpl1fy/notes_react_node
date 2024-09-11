@@ -3,10 +3,12 @@ import { useState } from "react";
 import axios from 'axios';
 import SuccessModal from "./SuccessModal";
 import FailureModal from "./FailureModal";
+import { useAuth } from "./useAuth";
 
 
 
 export default function Signup() {
+  const { signup } = useAuth();
   const [formName, setName] = useState('');
   const [formEmail, setEmail] = useState('');
   const [formPassword, setPassword] = useState('');
@@ -33,7 +35,7 @@ export default function Signup() {
       setMessage(res.data.message);
       if(res.data.success) {
         const generatedToken = res.data.token;
-        localStorage.setItem('token', generatedToken);
+        signup(generatedToken);
         openModal(setSuccessModalIsOpen);
       } else {
         openModal(setFailureModalIsOpen);
