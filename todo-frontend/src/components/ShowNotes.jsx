@@ -113,22 +113,21 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
 
   return (
     <div style={{marginLeft: '20px'}}>
-      <h3>Your Notes</h3>
+      <h3 className="m-2">Your Notes</h3>
       <div className="d-flex m-2 flex-wrap">
         {isLoggedIn &&  notes.length > 0 ?
         <>
           {notes.map((note, index) => (
-            <Card style={{width: '12rem', height:'15rem', marginRight:'5px', marginTop:'5px'}} key={index}>
-              <Card.Body>
-                <Card.Title>{note.heading}</Card.Title>
-                <Card.Text>{note.content}</Card.Text>
-              </Card.Body>
-              <div className="d-flex">
-                <Button variant="primary" style={{width:'3rem'}} className="flex-fill m-2" onClick={() => handleView(note.heading, note.content)} ><RemoveRedEyeIcon /></Button>
-                <Button variant="primary" style={{width:'3rem'}} className="flex-fill m-2" onClick={() => handleEdit(note.heading, note.content, note.notes_id)}><ModeEditIcon /></Button>
-                <Button variant="danger" style={{width:'3rem'}} onClick={() => handleConfirmation(note.notes_id)} className="flex-fill m-2"><DeleteIcon /></Button>
+            <div className="d-flex justify-content-between align-self-center m-2 border border-secondary-subtle rounded-2" style={{width:'100%'}} key={index}>
+              <div className="m-2">
+                {note.heading}
               </div>
-            </Card>
+              <div className="d-flex">
+                 <Button variant="primary" style={{width:'3rem'}} className="flex-fill m-2" onClick={() => handleView(note.heading, note.content)} ><RemoveRedEyeIcon /></Button>
+                 <Button variant="primary" style={{width:'3rem'}} className="flex-fill m-2" onClick={() => handleEdit(note.heading, note.content, note.notes_id)}><ModeEditIcon /></Button>
+                 <Button variant="danger" style={{width:'3rem'}} onClick={() => handleConfirmation(note.notes_id)} className="flex-fill m-2"><DeleteIcon /></Button>
+               </div>
+            </div>
           ))}
         </> : <>
           <h6>{noNotes}</h6>
