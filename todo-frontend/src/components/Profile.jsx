@@ -6,7 +6,7 @@ import { Button } from "react-bootstrap";
 export default function Profile() {
 
   const { localToken } = useAuth();
-  const [profileData, setProfileData] = useState([])
+  const [profileData, setProfileData] = useState(null);
 
   useEffect(() => {
     console.log(localToken);
@@ -17,13 +17,14 @@ export default function Profile() {
         })
         console.log(res);
         if(res.data.length > 0) {
-          setProfileData(res.data);
+          setProfileData(res.data[0]);
         } else {
-          setProfileData([]);
+          setProfileData(null);
         }
         console.log(profileData);
         } catch(err) {
           console.error(err);
+          setProfileData(null)
         }
     }
     getProfile();
@@ -37,9 +38,9 @@ export default function Profile() {
         <div className="container d-flex flex-column">
           {profileData ? (
           <>
-            <div className="mt-2">Name: {profileData[0].name}</div>
+            <div className="mt-2">Name: {profileData.name}</div>
             <div className="d-flex justify-content-between align-items-center mt-2">
-              <div>Email: {profileData[0].email}</div>
+              <div>Email: {profileData.email}</div>
               <div>
                 <Button variant="primary">Update Email</Button>
               </div>

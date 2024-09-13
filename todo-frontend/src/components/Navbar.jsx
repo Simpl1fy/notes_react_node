@@ -16,6 +16,11 @@ function Navbar() {
 
   const handleProfileClick = () => navigate('/profile');
 
+  const handleLogout = () => {
+    logout();
+    navigate('/home');
+  }
+
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
@@ -38,7 +43,7 @@ function Navbar() {
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item onClick={handleProfileClick}>Profile</Dropdown.Item>
-                  <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
+                  <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
               </>
