@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import axios from "axios";
-import { Card, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import DeleteIcon from '@mui/icons-material/Delete';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';

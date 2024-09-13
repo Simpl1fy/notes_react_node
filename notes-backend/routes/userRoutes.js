@@ -116,4 +116,29 @@ router.post('/login', async(req, res) => {
     }
 })
 
+router.get('/profile', jwtAuthMiddleware, async(req, res) => {
+    try {
+        const user_id = req.jwtPayload.id;
+        if(!user_id) {
+            return res.status(400).json({
+                message: "No user id"
+            })
+        }
+        const [rows] = await conn.query('select * from users where id=?', [user_id]);
+        if (rows.length > 0) {
+            return res.status(200).json(rows);
+        } else {
+            return res.status(200).json({
+                "message": "Not found"
+            })
+        }
+
+    } catch(err) {
+        console.error(err);
+        return res.status(500).json({
+            message: "Internal Server Error!"
+        })
+    }
+})
+
 module.exports = router;

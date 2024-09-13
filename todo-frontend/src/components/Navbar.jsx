@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useAuth } from "./useAuth";
@@ -11,6 +11,10 @@ function Navbar() {
   useEffect(() => {
     console.log(isLoggedIn);
   }, [])
+
+  const navigate = useNavigate();
+
+  const handleProfileClick = () => navigate('/profile');
 
   return (
     <>
@@ -33,7 +37,7 @@ function Navbar() {
                   <AccountCircleOutlinedIcon className="mr-5" color="info" fontSize="medium" />
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  <Dropdown.Item><Link to={'/profile'} className="text-decoration-none text-light">Profile</Link></Dropdown.Item>
+                  <Dropdown.Item onClick={handleProfileClick}>Profile</Dropdown.Item>
                   <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
