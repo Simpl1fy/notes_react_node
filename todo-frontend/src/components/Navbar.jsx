@@ -37,8 +37,8 @@ function Navbar() {
                   <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
-          </>
-          }
+              </>
+            }
             
         </div>
       </nav>

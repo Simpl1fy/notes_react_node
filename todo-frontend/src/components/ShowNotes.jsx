@@ -5,6 +5,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import NoteViewEditModal from "./NoteViewEditModal";
+import { useAuth } from "./useAuth";
+import ConfirmationModal from "./ConfirmationModal";
 
 
 export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggleToast, handleChange }) {
@@ -29,9 +31,17 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
   const [noteId, setNoteId] = useState(0);
   const [noNotes, setNoNotes] = useState('');
 
+  // state for confirmation modal opening
+  const [confirmModalIsOpen, setConfirmModalIsOpen] = useState(false);
+
+  const { isLoggedIn } = useAuth();
+
   // functions for toggling modal
   const openModal = () => setModalIsOpen(true);
   const closeModal = () => setModalIsOpen(false);
+
+  const openConfirmModal = () => setConfirmModalIsOpen(true);
+  const closeConfirmModal = () => setConfirmModalIsOpen(false);
 
 
   useEffect(() => {
@@ -96,12 +106,16 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
     openModal();
   }
 
+  const handleConfirmation = (id) => {
+    setNoteId(id);
+    openConfirmModal();
+  }
 
   return (
     <div style={{marginLeft: '20px'}}>
       <h3>Your Notes</h3>
       <div className="d-flex m-2 flex-wrap">
-        {notes.length > 0 ?
+        {isLoggedIn &&  notes.length > 0 ?
         <>
           {notes.map((note, index) => (
             <Card style={{width: '12rem', height:'15rem', marginRight:'5px', marginTop:'5px'}} key={index}>
@@ -112,7 +126,7 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
               <div className="d-flex">
                 <Button variant="primary" style={{width:'3rem'}} className="flex-fill m-2" onClick={() => handleView(note.heading, note.content)} ><RemoveRedEyeIcon /></Button>
                 <Button variant="primary" style={{width:'3rem'}} className="flex-fill m-2" onClick={() => handleEdit(note.heading, note.content, note.notes_id)}><ModeEditIcon /></Button>
-                <Button variant="danger" style={{width:'3rem'}} onClick={() => deleteNote(note.notes_id)} className="flex-fill m-2"><DeleteIcon /></Button>
+                <Button variant="danger" style={{width:'3rem'}} onClick={() => handleConfirmation(note.notes_id)} className="flex-fill m-2"><DeleteIcon /></Button>
               </div>
             </Card>
           ))}
@@ -122,6 +136,7 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
         }
       </div>
       <NoteViewEditModal isOpen={isOpen} closeModal={closeModal} isDisabled={disabled} heading={heading} content={content} noteId={noteId} handleChange={handleChange} setSuccess={setSuccess} setMessage={setMessage} toggleToast={toggleToast} />
+      <ConfirmationModal isOpen={confirmModalIsOpen} closeModal={closeConfirmModal} id={noteId} deleteFunction={deleteNote} />
     </div>
   )
 }
