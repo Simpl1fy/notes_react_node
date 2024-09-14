@@ -142,6 +142,33 @@ router.put('/update/email', jwtAuthMiddleware, async (req, res) => {
     }
 })
 
+
+// route for updating password
+router.put('/update/password', jwtAuthMiddleware, async(req, res) => {
+    try {
+        const userId = req.jwtPayload.id;
+        const { password } = req.body;
+        const hashedPassword =await bcrypt.hash(password, saltRounds);
+        const [response] = await conn.query('update users set password=? where id=?', [hashedPassword, userId]);
+        if(response.affectedRows === 1) {
+            return res.status(200).json({
+                success: true,
+                message: "Password has been updated successfully"
+            })
+        } else {
+            return res.status(200).json({
+                success: false,
+                message: "Password could not be updated"
+            })
+        }
+    } catch(err) {
+        console.error(err);
+        return res.status(500).json({
+            message: "Internal Server Error"
+        })
+    }
+})
+
 router.get('/profile', jwtAuthMiddleware, async(req, res) => {
     try {
         const user_id = req.jwtPayload.id;
