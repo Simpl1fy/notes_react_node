@@ -18,17 +18,16 @@ export default function ChangeInformationModal ({ isOpen, closeModal, type, toke
 
   const handleUpdate = async () => {
     try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
       if(type === 'email') {
         const value = {
           email: input
         }
-        const res = await axios.put('http://localhost:5000/update/email', value,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          }
-        );
+        const res = await axios.put('http://localhost:5000/update/email', value, config);
 
         if (res.data.success) {
           console.log("Email Updated Succesfully");
@@ -40,6 +39,28 @@ export default function ChangeInformationModal ({ isOpen, closeModal, type, toke
           toggleToast();
         } else {
           console.log("Email Updation Failed");
+          setInput('');
+          setSuccess(false);
+          setMessage(res.data.message);
+          closeModal();
+          toggleToast();
+        }
+      } else {
+        const value = {
+          password: input
+        }
+        const res = await axios.put('http://localhost:5000/update/password', value, config);
+
+        if(res.data.success) {
+          console.log("Password Updated Succesfully");
+          setInput('');
+          setSuccess(true);
+          setMessage(res.data.message);
+          setIsUpdated(!isUpdated);
+          closeModal();
+          toggleToast();
+        } else {
+          console.log("Password Updation Failed");
           setInput('');
           setSuccess(false);
           setMessage(res.data.message);
