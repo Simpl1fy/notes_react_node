@@ -116,6 +116,32 @@ router.post('/login', async(req, res) => {
     }
 })
 
+// route to update email
+router.put('/update/email', jwtAuthMiddleware, async (req, res) => {
+    try {
+        const userId = req.jwtPayload.id;
+        const { email } = req.body;
+        const [response] = await conn.query('update users set email=? where id=?', [email, userId]);
+        console.log(response)
+        if(response.affectedRows === 1) {
+            return res.status(200).json({
+                success: true,
+                message: "Email has been updated successfully"
+            });
+        } else {
+            return res.status(200).json({
+                success: false,
+                message: "Email could not be updated, Try again later"
+            })
+        }
+    } catch(err) {
+        console.error(err);
+        return res.status(500).json({
+            message: "Internal Server Error"
+        })
+    }
+})
+
 router.get('/profile', jwtAuthMiddleware, async(req, res) => {
     try {
         const user_id = req.jwtPayload.id;
