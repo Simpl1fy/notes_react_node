@@ -1,7 +1,8 @@
 // import React from 'react'
 import { Modal, Button } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import axios from "axios";
+import JoditEditor from 'jodit-react';
 
 export default function NoteViewEditModal({ isOpen, closeModal, isDisabled, heading, content, noteId, setSuccess, setMessage, handleChange, toggleToast }) {
 
@@ -15,6 +16,15 @@ export default function NoteViewEditModal({ isOpen, closeModal, isDisabled, head
     setEditHeading(heading);
     setEditContent(content);
   }, [heading, content])
+
+  const editor = useRef(null);
+
+  const config = useMemo(() => ({
+      readonly: isDisabled,
+      placeholder: 'Start typing...'
+    }), [isDisabled]);
+
+
 
 
   const handleUpdate = async (e) => {
@@ -44,11 +54,17 @@ export default function NoteViewEditModal({ isOpen, closeModal, isDisabled, head
     }
   }
 
+  const handleClose = () => {
+    setEditContent(content);
+    setEditHeading(heading);
+    closeModal();
+  }
+
   return (
     <div>
       <Modal
         show={isOpen}
-        onHide={closeModal}
+        onHide={handleClose}
         size='xl'
       >
         <Modal.Header closeButton>
@@ -74,15 +90,14 @@ export default function NoteViewEditModal({ isOpen, closeModal, isDisabled, head
                 <label htmlFor="explanation" className="form-label">
                   <strong>Explanation</strong>
                 </label>
-                <textarea
-                  name="explain"
-                  id="explanationBox"
-                  className="form-control"
-                  rows="20"
-                  onChange={(e) => setEditContent(e.target.value)}
-                  disabled={isDisabled}
+                <JoditEditor
+                  ref={editor}
                   value={editContent}
-                ></textarea>
+                  config={config}
+                  tabIndex={1}
+                  onBlur={newContent => setEditContent(newContent)}
+                  onChange={newContent => setEditContent(newContent)}
+                />
               </div>
             </form>
         </div>
@@ -94,7 +109,7 @@ export default function NoteViewEditModal({ isOpen, closeModal, isDisabled, head
             </> :
             <>
               <Button variant='primary' onClick={handleUpdate}>Update</Button>
-              <Button variant='danger' onClick={closeModal}>Close</Button>
+              <Button variant='danger' onClick={handleClose}>Close</Button>
             </>
           }
         </Modal.Footer>

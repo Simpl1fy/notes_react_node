@@ -16,9 +16,9 @@ export default function NoteModal({ isOpen, closeModal, handleChange, setSuccess
   const editor = useRef(null);
 
   const config = useMemo(() => ({
-    readonly: false, // all options from https://xdsoft.net/jodit/docs/,
-    placeholder: 'Start typing...'
-}), []);
+      readonly: false, // all options from https://xdsoft.net/jodit/docs/,
+      placeholder: 'Start typing...'
+    }), []);
 
 
 
