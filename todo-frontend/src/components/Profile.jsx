@@ -7,7 +7,7 @@ import ToastFile from "./ToastFile";
 
 export default function Profile() {
 
-  const { localToken } = useAuth();
+  const { isLoggedIn, localToken } = useAuth();
   const [profileData, setProfileData] = useState(null);
   const [type, setType] = useState('');
   const [isChangeModalOpen, setChangeModal] = useState(false);
@@ -27,22 +27,27 @@ export default function Profile() {
   const toggleToast = () => setShowToast(!showToast);
 
   useEffect(() => {
-    const getProfile = async() => {
-      try {
-        const res = await axios.get('http://localhost:5000/profile', {
-            headers: {Authorization: `Bearer ${localToken}`}
-        })
-        if(res.data.length > 0) {
-          setProfileData(res.data[0]);
-        } else {
-          setProfileData(null);
-        }
-        } catch(err) {
-          console.error(err);
-          setProfileData(null)
-        }
+    console.log(localToken);
+    console.log("Is logged in ", isLoggedIn);
+    if(isLoggedIn) {
+      const getProfile = async() => {
+        try {
+          const res = await axios.get('http://localhost:5000/profile', {
+              headers: {Authorization: `Bearer ${localToken}`}
+          })
+          console.log("Response from the server is ", res);
+          if(res.data.length > 0) {
+            setProfileData(res.data[0]);
+          } else {
+            setProfileData(null);
+          }
+          } catch(err) {
+            console.error(err);
+            setProfileData(null)
+          }
+      }
+      getProfile();
     }
-    getProfile();
   }, [isUpdated])
 
   const handleUpdate = (buttonText) => {

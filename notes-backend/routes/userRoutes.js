@@ -71,7 +71,7 @@ router.post('/login', async(req, res) => {
 
         // checking if the email exists or not
         const [rows] = await conn.query('select * from users where email = ?', [email]);
-        console.log(rows.password);
+        console.log(rows[0].password);
         if (rows.length === 0) {
             return res.status(200).json({
                 success: false,
