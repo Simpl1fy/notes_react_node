@@ -1,6 +1,8 @@
 import { Modal, Button } from "react-bootstrap";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useRef, useMemo } from "react";
+import JoditEditor from 'jodit-react';
+import { useAuth } from "./useAuth";
 
 export default function NoteModal({ isOpen, closeModal, handleChange, setSuccess, setMessage, toggleToast }) {
 
@@ -9,13 +11,23 @@ export default function NoteModal({ isOpen, closeModal, handleChange, setSuccess
   const [content, setContent] = useState('');
 
   // getting the token
-  const token = localStorage.getItem('token');
+  const { localToken } = useAuth();
+
+  const editor = useRef(null);
+
+  const config = useMemo(() => ({
+    readonly: false, // all options from https://xdsoft.net/jodit/docs/,
+    placeholder: 'Start typing...'
+}), []);
+
+
+
 
   // function to handle submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     const config = {
-      headers: {Authorization: `Bearer ${token}`}
+      headers: {Authorization: `Bearer ${localToken}`}
     }
     const bodyParameters = {
       heading: heading,
@@ -38,13 +50,17 @@ export default function NoteModal({ isOpen, closeModal, handleChange, setSuccess
   }
 
   // function for handling close button
-  const handleClose = () => closeModal();
+  const handleClose = () => {
+    setContent('');
+    setHeading('');
+    closeModal();
+  }
 
   return (
     <div>
       <Modal
         show={isOpen}
-        onHide={closeModal}
+        onHide={handleClose}
         backdrop="static"
         keyboard={false}
         size='xl'
@@ -71,14 +87,14 @@ export default function NoteModal({ isOpen, closeModal, handleChange, setSuccess
                 <label htmlFor="explanation" className="form-label">
                   <strong>Explanation</strong>
                 </label>
-                <textarea
-                  name="explain"
-                  id="explanationBox"
-                  className="form-control"
-                  placeholder="Explanation"
-                  rows="20"
-                  onChange={(e) => setContent(e.target.value)}
-                ></textarea>
+                <JoditEditor
+                  ref={editor}
+                  value={content}
+                  config={config}
+                  tabIndex={1}
+                  onBlur={newContent => setContent(newContent)}
+                  onChange={newContent => setContent(newContent)}
+                />
               </div>
             </form>
         </div>

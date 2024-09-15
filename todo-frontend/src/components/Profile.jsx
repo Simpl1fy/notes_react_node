@@ -58,8 +58,8 @@ export default function Profile() {
   }
 
   return (
-    <div className="container vh-100 d-flex justify-content-center align-items-center">
-      <div className="p-3 bg-light-subtle border" style={{width: "30rem"}}>
+    <div className="container-lg vh-100 d-flex justify-content-center align-items-center">
+      <div className="p-3 bg-light-subtle border border-2" style={{width: "40rem"}}>
         <h3 className="mb-2">Your Profile</h3>
         <div className="container d-flex flex-column">
           {profileData ? (
@@ -68,13 +68,16 @@ export default function Profile() {
             <div className="d-flex justify-content-between align-items-center mt-2">
               <div>Email: {profileData.email}</div>
               <div>
-                <Button variant="primary" onClick={() => handleUpdate('email')}>Update Email</Button>
+                <Button variant="primary" onClick={() => handleUpdate('email')} style={{width:'10rem'}}>Update Email</Button>
               </div>
             </div>
             <div className="d-flex justify-content-between align-items-center mt-2">
-              <div>Password</div>
+              <div className="d-flex align-items-center">
+                <div className="me-2">Password</div>
+                <input type="password" className="form-control" disabled="true" value={profileData.password} />
+              </div>
               <div>
-                <Button variant="primary" onClick={() => handleUpdate('password')}>Change Password</Button>
+                <Button variant="primary" onClick={() => handleUpdate('password')} style={{width:'10rem'}}>Change Password</Button>
               </div>
             </div>
           </>
