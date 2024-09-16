@@ -9,6 +9,11 @@ const conn = require('./../connection');
 router.post('/note/submit', jwtAuthMiddleware, async (req, res) => {
     try {
        const userId = req.jwtPayload.id;
+       console.log(userId);
+       if(!userId) return res.status(200).json({
+            success: false,
+            message: "No User Id found in the token"
+        })
        const { heading, content } = req.body;
        if(!heading || !content) {
             return res.status(102).json({

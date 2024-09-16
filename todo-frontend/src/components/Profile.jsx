@@ -74,7 +74,7 @@ export default function Profile() {
             <div className="d-flex justify-content-between align-items-center mt-2">
               <div className="d-flex align-items-center">
                 <div className="me-2">Password</div>
-                <input type="password" className="form-control" disabled="true" value={profileData.password} />
+                <input type="password" className="form-control" disabled={true} value={profileData.password} />
               </div>
               <div>
                 <Button variant="primary" onClick={() => handleUpdate('password')} style={{width:'10rem'}}>Change Password</Button>
