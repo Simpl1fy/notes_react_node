@@ -32,7 +32,7 @@ export default function Profile() {
     if(isLoggedIn) {
       const getProfile = async() => {
         try {
-          const res = await api.get('http://localhost:5000/profile', {
+          const res = await api.get('/profile', {
               headers: {Authorization: `Bearer ${localToken}`}
           })
           console.log("Response from the server is ", res);

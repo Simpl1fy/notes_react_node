@@ -52,7 +52,7 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
         return;
       }
       try {
-        const res = await api.get('http://localhost:5000/note/show', {
+        const res = await api.get('/note/show', {
           headers: {Authorization: `Bearer ${token}`}
         });
         if (res.data.length > 0) {
@@ -69,7 +69,7 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
   const deleteNote = async (id) => {
     console.log("Deleting note with id = " + id);
     try {
-      const res = await api.post(`http://localhost:5000/note/delete/${id}`);
+      const res = await api.post(`/note/delete/${id}`);
       console.log(res);
       if(res.data.success) {
         console.log("deletion successful");

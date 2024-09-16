@@ -35,7 +35,7 @@ export default function NoteModal({ isOpen, closeModal, handleChange, setSuccess
       heading: heading,
       content: content
     }
-    const res = await api.post('http://localhost:5000/note/submit', bodyParameters, config)
+    const res = await api.post('/note/submit', bodyParameters, config)
     if(res.data.success) {
       console.log("Your note has been saved successfully");
       handleChange();

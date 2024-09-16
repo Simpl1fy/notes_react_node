@@ -27,7 +27,7 @@ export default function ChangeInformationModal ({ isOpen, closeModal, type, toke
         const value = {
           email: input
         }
-        const res = await api.put('http://localhost:5000/update/email', value, config);
+        const res = await api.put('/update/email', value, config);
 
         if (res.data.success) {
           console.log("Email Updated Succesfully");
@@ -49,7 +49,7 @@ export default function ChangeInformationModal ({ isOpen, closeModal, type, toke
         const value = {
           password: input
         }
-        const res = await api.put('http://localhost:5000/update/password', value, config);
+        const res = await api.put('/update/password', value, config);
 
         if(res.data.success) {
           console.log("Password Updated Succesfully");

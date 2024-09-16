@@ -34,7 +34,7 @@ export default function NoteViewEditModal({ isOpen, closeModal, isDisabled, head
       content: editContent
     }
     try {
-      const res = await api.put(`http://localhost:5000/note/update/${noteId}`, updatedData);
+      const res = await api.put(`/note/update/${noteId}`, updatedData);
       console.log(res);
       if(res.data.success) {
         console.log("Your note has been updated successfully");

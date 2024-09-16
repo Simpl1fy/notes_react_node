@@ -24,7 +24,7 @@ export default function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await api.post('http://localhost:5000/signup', {
+      const res = await api.post('/signup', {
         name: formName,
         email: formEmail,
         password: formPassword
