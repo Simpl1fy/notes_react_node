@@ -1,8 +1,8 @@
 import { Modal, Button } from "react-bootstrap";
-import axios from "axios";
 import { useState, useRef, useMemo, useEffect } from "react";
 import JoditEditor from 'jodit-react';
 import { useAuth } from "./useAuth";
+import api from "../config/axiosConfig";
 
 export default function NoteModal({ isOpen, closeModal, handleChange, setSuccess, setMessage, toggleToast }) {
 
@@ -35,7 +35,7 @@ export default function NoteModal({ isOpen, closeModal, handleChange, setSuccess
       heading: heading,
       content: content
     }
-    const res = await axios.post('http://localhost:5000/note/submit', bodyParameters, config)
+    const res = await api.post('http://localhost:5000/note/submit', bodyParameters, config)
     if(res.data.success) {
       console.log("Your note has been saved successfully");
       handleChange();

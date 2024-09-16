@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom"
 import { useState } from "react";
-import axios from "axios";
 import SuccessModal from "./SuccessModal";
 import FailureModal from "./FailureModal";
 import { useAuth } from "./useAuth";
+import api from "../config/axiosConfig";
 
 export default function Login() {
   const { login } = useAuth();
@@ -22,7 +22,7 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-    const res = await axios.post('http://localhost:5000/login', {
+    const res = await api.post('http://localhost:5000/login', {
       email: email,
       password: password
     })

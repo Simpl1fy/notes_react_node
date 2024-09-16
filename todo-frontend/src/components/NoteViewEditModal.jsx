@@ -1,8 +1,8 @@
 // import React from 'react'
 import { Modal, Button } from "react-bootstrap";
 import { useState, useEffect, useRef, useMemo } from "react";
-import axios from "axios";
 import JoditEditor from 'jodit-react';
+import api from "../config/axiosConfig";
 
 export default function NoteViewEditModal({ isOpen, closeModal, isDisabled, heading, content, noteId, setSuccess, setMessage, handleChange, toggleToast }) {
 
@@ -34,7 +34,7 @@ export default function NoteViewEditModal({ isOpen, closeModal, isDisabled, head
       content: editContent
     }
     try {
-      const res = await axios.put(`http://localhost:5000/note/update/${noteId}`, updatedData);
+      const res = await api.put(`http://localhost:5000/note/update/${noteId}`, updatedData);
       console.log(res);
       if(res.data.success) {
         console.log("Your note has been updated successfully");

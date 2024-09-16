@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react"
-import axios from "axios";
 import { Button } from "react-bootstrap";
 import DeleteIcon from '@mui/icons-material/Delete';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
@@ -7,6 +6,7 @@ import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import NoteViewEditModal from "./NoteViewEditModal";
 import { useAuth } from "./useAuth";
 import ConfirmationModal from "./ConfirmationModal";
+import api from "../config/axiosConfig";
 
 
 export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggleToast, handleChange }) {
@@ -52,7 +52,7 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
         return;
       }
       try {
-        const res = await axios.get('http://localhost:5000/note/show', {
+        const res = await api.get('http://localhost:5000/note/show', {
           headers: {Authorization: `Bearer ${token}`}
         });
         if (res.data.length > 0) {
@@ -69,7 +69,7 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
   const deleteNote = async (id) => {
     console.log("Deleting note with id = " + id);
     try {
-      const res = await axios.post(`http://localhost:5000/note/delete/${id}`);
+      const res = await api.post(`http://localhost:5000/note/delete/${id}`);
       console.log(res);
       if(res.data.success) {
         console.log("deletion successful");

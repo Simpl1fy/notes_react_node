@@ -1,6 +1,6 @@
 import { Modal, Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../config/axiosConfig";
 
 
 export default function ChangeInformationModal ({ isOpen, closeModal, type, token, setSuccess, setMessage, toggleToast, isUpdated, setIsUpdated }) {
@@ -27,7 +27,7 @@ export default function ChangeInformationModal ({ isOpen, closeModal, type, toke
         const value = {
           email: input
         }
-        const res = await axios.put('http://localhost:5000/update/email', value, config);
+        const res = await api.put('http://localhost:5000/update/email', value, config);
 
         if (res.data.success) {
           console.log("Email Updated Succesfully");
@@ -49,7 +49,7 @@ export default function ChangeInformationModal ({ isOpen, closeModal, type, toke
         const value = {
           password: input
         }
-        const res = await axios.put('http://localhost:5000/update/password', value, config);
+        const res = await api.put('http://localhost:5000/update/password', value, config);
 
         if(res.data.success) {
           console.log("Password Updated Succesfully");

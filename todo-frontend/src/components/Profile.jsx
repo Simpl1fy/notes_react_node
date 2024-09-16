@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
-import axios from "axios"
 import { useAuth } from "./useAuth"
 import { Button } from "react-bootstrap";
 import ChangeInformationModal from "./ChangeInformationModal";
 import ToastFile from "./ToastFile";
+import api from "../config/axiosConfig";
 
 export default function Profile() {
 
@@ -32,7 +32,7 @@ export default function Profile() {
     if(isLoggedIn) {
       const getProfile = async() => {
         try {
-          const res = await axios.get('http://localhost:5000/profile', {
+          const res = await api.get('http://localhost:5000/profile', {
               headers: {Authorization: `Bearer ${localToken}`}
           })
           console.log("Response from the server is ", res);
