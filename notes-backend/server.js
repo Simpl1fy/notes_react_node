@@ -7,7 +7,7 @@ const conn = require('./connection');
 const app = express();
 
 const corsOptions = {
-    "origin": "https://notesfrontend-lovat.vercel.app/",
+    "origin": "https://notesfrontend-lovat.vercel.app",
     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
     "preflightContinue": false,
     "optionsSuccessStatus": 204
