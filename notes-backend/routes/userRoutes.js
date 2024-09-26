@@ -32,7 +32,7 @@ router.post('/signup', async(req, res) => {
         const hashedPassword = await bcrypt.hash(password, saltRounds);
         // insert the data into the database
         const response = await conn.query('insert into users (name, email, password) values (?,?,?)', [name, email,  hashedPassword]);
-        const userId = response.insertId;
+        const userId = response[0].insertId;
 
         const payload = {
             id: userId

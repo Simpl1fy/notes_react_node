@@ -21,7 +21,7 @@ router.post('/note/submit', jwtAuthMiddleware, async (req, res) => {
                 message: "Please fill out all the fields"
             })
         } 
-        const response = await conn.query('insert into notes (user_id, heading, content) values (?, ?, ?)', [userId, heading, content]);
+        const response = await conn.query('insert into notes_table (user_id, heading, content) values (?, ?, ?)', [userId, heading, content]);
         if(response) {return res.status(200).json({
             success: true,
             message: "Your note has been saved successfully!"
@@ -51,7 +51,7 @@ router.get('/note/show', jwtAuthMiddleware, async(req, res) => {
                 message: "No Notes Found"
             })
         }
-        const [rows] = await conn.query('select * from notes where user_id=?', [userId]);
+        const [rows] = await conn.query('select * from notes_table where user_id=?', [userId]);
         if(rows.length > 0) {
             return res.status(200).json(rows);
         } else {
@@ -74,7 +74,7 @@ router.get('/note/show', jwtAuthMiddleware, async(req, res) => {
 router.post('/note/delete/:note_id', async(req, res) => {
     const id = req.params.note_id;
     try {
-        const [result] = await conn.query('delete from notes where notes_id=?', [id]);
+        const [result] = await conn.query('delete from notes_table where notes_id=?', [id]);
         console.log(result);
         if(result.affectedRows === 1) {
             return res.status(200).json({
@@ -103,7 +103,7 @@ router.post('/note/delete/:note_id', async(req, res) => {
 router.get('/note/:id', async(req, res) => {
     const note_id = req.params.id;
     try {
-        const [result] = await conn.query('select * from notes where notes_id=?', [note_id]);
+        const [result] = await conn.query('select * from notes_table where notes_id=?', [note_id]);
         if (result.length > 0) {
             return res.status(200).json(result)
         } else {
@@ -127,7 +127,7 @@ router.put('/note/update/:id', async (req, res) => {
     const note_id = req.params.id;
     const { heading, content } = req.body;
     try {
-        const [result] = await conn.query('update notes set heading=?, content=? where notes_id=?', [heading, content, note_id]);
+        const [result] = await conn.query('update notes_table set heading=?, content=? where notes_id=?', [heading, content, note_id]);
         if (result.affectedRows !== 0) {
             return res.status(200).json({
                 success: true,
