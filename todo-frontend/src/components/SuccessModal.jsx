@@ -17,6 +17,7 @@ export default function SuccessModal({ isOpen, onRequestClose, message }) {
         onHide={onRequestClose}
         backdrop="static"
         keyboard={false}
+        centered
       >
         <Modal.Header closeButton>
           <Modal.Title>Success</Modal.Title>

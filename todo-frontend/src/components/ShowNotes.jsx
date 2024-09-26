@@ -131,7 +131,7 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
             </div>
           ))}
         </> : <>
-          <h6>{noNotes}</h6>
+          <h6 className="ms-2">{noNotes}</h6>
         </>
         }
       </div>
