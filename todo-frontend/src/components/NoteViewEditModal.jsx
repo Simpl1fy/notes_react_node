@@ -66,12 +66,13 @@ export default function NoteViewEditModal({ isOpen, closeModal, isDisabled, head
         show={isOpen}
         onHide={handleClose}
         size='xl'
+        centered
       >
         <Modal.Header closeButton>
-          <Modal.Title>Create a New Note</Modal.Title>
+          <Modal.Title>{isDisabled ? 'View Note' : 'Edit Note'}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="form-container px-3 py-3">
+          <div className="form-container">
             <form className="px-auto border border-2 border-dark p-3 rounded-4 bg-light">
               <div className="mb-3">
                 <label htmlFor="heading" className="form-label">
