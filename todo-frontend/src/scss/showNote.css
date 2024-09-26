@@ -1,0 +1,8 @@
+@media screen and (max-width: 756px)
+{
+    .c-mobile-button
+    {
+        width: 3rem;
+        height: 3rem;
+    }
+}

@@ -71,7 +71,7 @@ export default function NoteModal({ isOpen, closeModal, handleChange, setSuccess
           <Modal.Title>Create a New Note</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="form-container px-3 py-3">
+          <div className="form-container">
             <form className="px-auto border border-2 border-dark p-3 rounded-4 bg-light">
               <div className="mb-3">
                 <label htmlFor="heading" className="form-label">
@@ -79,7 +79,7 @@ export default function NoteModal({ isOpen, closeModal, handleChange, setSuccess
                 </label>
                 <input
                   type="text"
-                  className="form-control form-control-lg"
+                  className="form-control"
                   id="headingInput"
                   placeholder="Enter the heading of your Note"
                   onChange={(e) => setHeading(e.target.value)}

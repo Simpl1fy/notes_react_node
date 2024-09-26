@@ -33,7 +33,7 @@ function Navbar() {
                   variant="info"
                   id="dropdown-basic"
                   className="d-flex align-items-center"
-                  style={{ backgroundColor: 'transparent', border: 'none' }}
+                  style={{ backgroundColor: 'transparent', border: 'none', padding: '0px' }}
                 >
                   <AccountCircleOutlinedIcon className="mr-5" color="info" fontSize="medium" />
                 </Dropdown.Toggle>

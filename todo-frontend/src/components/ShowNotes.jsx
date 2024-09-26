@@ -7,6 +7,7 @@ import NoteViewEditModal from "./NoteViewEditModal";
 import { useAuth } from "./useAuth";
 import ConfirmationModal from "./ConfirmationModal";
 import api from "../config/axiosConfig";
+import '../scss/showNote.css';
 
 
 export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggleToast, handleChange }) {
@@ -112,20 +113,20 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
   }
 
   return (
-    <div style={{marginLeft: '20px'}}>
+    <div style={{marginLeft: '0.5rem'}}>
       <h3 className="m-2">Your Notes</h3>
-      <div className="d-flex m-2 flex-wrap">
+      <div>
         {isLoggedIn &&  notes.length > 0 ?
         <>
           {notes.map((note, index) => (
-            <div className="d-flex justify-content-between align-self-center m-2 border border-secondary-subtle rounded-2" style={{width:'100%'}} key={index}>
+            <div className="d-flex justify-content-between align-items-center border border-secondary-subtle rounded-2 m-2" key={index}>
               <div className="m-2">
                 {note.heading}
               </div>
-              <div className="d-flex">
-                 <Button variant="primary" style={{width:'3rem'}} className="flex-fill m-2" onClick={() => handleView(note.heading, note.content)} ><RemoveRedEyeIcon /></Button>
-                 <Button variant="primary" style={{width:'3rem'}} className="flex-fill m-2" onClick={() => handleEdit(note.heading, note.content, note.notes_id)}><ModeEditIcon /></Button>
-                 <Button variant="danger" style={{width:'3rem'}} onClick={() => handleConfirmation(note.notes_id)} className="flex-fill m-2"><DeleteIcon /></Button>
+              <div className="d-flex justify-content-center">
+                 <Button variant="primary" className="m-2 c-mobile-button" onClick={() => handleView(note.heading, note.content)} ><RemoveRedEyeIcon /></Button>
+                 <Button variant="primary" className="m-2 c-mobile-button" onClick={() => handleEdit(note.heading, note.content, note.notes_id)}><ModeEditIcon /></Button>
+                 <Button variant="danger" onClick={() => handleConfirmation(note.notes_id)} className="m-2 c-mobile-button"><DeleteIcon /></Button>
                </div>
             </div>
           ))}
