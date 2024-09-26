@@ -8,7 +8,7 @@ import api from "../config/axiosConfig";
 
 
 export default function Signup() {
-  const { signup } = useAuth();
+  const { signup, isMobile } = useAuth();
   const [formName, setName] = useState('');
   const [formEmail, setEmail] = useState('');
   const [formPassword, setPassword] = useState('');
@@ -60,7 +60,7 @@ export default function Signup() {
   }
   return (
     <div className="form-container px-3 py-3 d-flex justify-content-center align-items-center">
-      <form className="bg-light px-3 py-3 border border-2 rounded-2 border-dark w-25" onSubmit={handleSubmit} action="" method="post">
+      <form className="bg-light px-3 py-3 border border-2 rounded-2 border-dark w-25" style={{minWidth: isMobile? '95vw' : '40vw'}} onSubmit={handleSubmit} action="" method="post">
         <h2 className="mb-3">Signup</h2>
         <div className="mb-3">
           <label htmlFor="name" className="form-label">

@@ -4,10 +4,11 @@ import { Button } from "react-bootstrap";
 import ChangeInformationModal from "./ChangeInformationModal";
 import ToastFile from "./ToastFile";
 import api from "../config/axiosConfig";
+import '../scss/profile.css';
 
 export default function Profile() {
 
-  const { isLoggedIn, localToken } = useAuth();
+  const { isLoggedIn, localToken, isMobile } = useAuth();
   const [profileData, setProfileData] = useState(null);
   const [type, setType] = useState('');
   const [isChangeModalOpen, setChangeModal] = useState(false);
@@ -58,26 +59,26 @@ export default function Profile() {
   }
 
   return (
-    <div className="container-lg vh-100 d-flex justify-content-center align-items-center">
+    <div className="container-lg d-flex justify-content-center align-items-center mt-2" style={{minWidth: isMobile ? '95vw' : '45vw'}}>
       <div className="p-3 bg-light-subtle border border-2" style={{width: "40rem"}}>
         <h3 className="mb-2">Your Profile</h3>
-        <div className="container d-flex flex-column">
+        <div className="d-flex flex-column">
           {profileData ? (
           <>
-            <div className="mt-2">Name: {profileData.name}</div>
-            <div className="d-flex justify-content-between align-items-center mt-2">
-              <div>Email: {profileData.email}</div>
+            <div className="mt-2"><strong>Name:</strong> {profileData.name}</div>
+            <div className="d-flex justify-content-between mt-2 profile-info">
+              <div><strong>Email:</strong> {profileData.email}</div>
               <div>
-                <Button variant="primary" onClick={() => handleUpdate('email')} style={{width:'10rem'}}>Update Email</Button>
+                <Button variant="primary" onClick={() => handleUpdate('email')} style={{width:'20vw', minWidth: '200px', textWrap: 'nowrap'}}>Update Email</Button>
               </div>
             </div>
-            <div className="d-flex justify-content-between align-items-center mt-2">
+            <div className="d-flex justify-content-between mt-2 profile-info">
               <div className="d-flex align-items-center">
-                <div className="me-2">Password</div>
+                <div className="me-2"><strong>Password:</strong></div>
                 <input type="password" className="form-control" disabled={true} value={profileData.password} />
               </div>
               <div>
-                <Button variant="primary" onClick={() => handleUpdate('password')} style={{width:'10rem'}}>Change Password</Button>
+                <Button variant="primary" onClick={() => handleUpdate('password')} style={{width:'20vw', minWidth: '200px', textWrap: 'nowrap'}}>Change Password</Button>
               </div>
             </div>
           </>

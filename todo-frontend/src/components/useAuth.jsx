@@ -8,6 +8,7 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [localToken, setLocalToken] = useState('');
+    const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -16,6 +17,20 @@ export function AuthProvider({ children }) {
             setLocalToken(token);
         }
     }, []);
+
+    useEffect(() => {
+      const checkMobile = () => {
+          setIsMobile(window.innerWidth <= 768);
+      };
+  
+      checkMobile();
+  
+      window.addEventListener('resize', checkMobile);
+  
+      return () => {
+          window.removeEventListener('resize', checkMobile);
+      };
+    })
 
     const signup = (jwtToken) => {
         console.log('Token received is = ', jwtToken);
@@ -37,7 +52,7 @@ export function AuthProvider({ children }) {
     }
 
     return (
-        <AuthContext.Provider value={{ isLoggedIn, login, logout, signup, localToken }}>
+        <AuthContext.Provider value={{ isLoggedIn, login, logout, signup, localToken, isMobile }}>
           {children}
         </AuthContext.Provider>
       );

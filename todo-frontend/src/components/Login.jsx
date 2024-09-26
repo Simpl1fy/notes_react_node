@@ -6,7 +6,7 @@ import { useAuth } from "./useAuth";
 import api from "../config/axiosConfig";
 
 export default function Login() {
-  const { login } = useAuth();
+  const { login, isMobile } = useAuth();
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
   const [successModalIsOpen, setSuccessModalIsOpen] = useState(false);
@@ -44,7 +44,7 @@ export default function Login() {
 
   return (
     <div className="form-container px-3 py-3 d-flex justify-content-center align-items-center">
-      <form className="bg-light px-3 py-3 border border-2 rounded-2 border-dark w-25" onSubmit={handleSubmit}>
+      <form className="bg-light px-3 py-3 border border-2 rounded-2 border-dark w-25" style={{minWidth: isMobile? '95vw' : '40vw'}} onSubmit={handleSubmit}>
         <h2 className="mb-3">Login</h2>
         <div className="mb-3">
           <label htmlFor="email" className="form-label">
