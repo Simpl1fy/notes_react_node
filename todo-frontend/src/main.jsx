@@ -9,6 +9,7 @@ import Home from './components/Home'
 import Profile from './components/Profile'
 import { AuthProvider } from './components/useAuth'
 import MobileCreateNote from './components/MobileCreateNote'
+import MobileViewComponent from './components/MobileViewComponent'
 
 
 const router = createBrowserRouter([
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "/create-note",
         element: <MobileCreateNote />
+      }, 
+      {
+        path: "/view-note",
+        element: <MobileViewComponent />
       }, 
       {
         index: true,

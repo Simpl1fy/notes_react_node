@@ -8,9 +8,12 @@ import { useAuth } from "./useAuth";
 import ConfirmationModal from "./ConfirmationModal";
 import api from "../config/axiosConfig";
 import '../scss/showNote.css';
+import { useNavigate } from "react-router-dom";
 
 
 export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggleToast, handleChange }) {
+
+  const navigate = useNavigate();
   
   // state for storing all the notes of a user
   const [notes, setNotes] = useState([]);
@@ -35,7 +38,7 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
   // state for confirmation modal opening
   const [confirmModalIsOpen, setConfirmModalIsOpen] = useState(false);
 
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, isMobile } = useAuth();
 
   // functions for toggling modal
   const openModal = () => setModalIsOpen(true);
@@ -93,10 +96,14 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
   }
 
   const handleView = (heading, content) => {
-    setDisabled(true);
     setHeading(heading);
     setContent(content);
-    openModal();
+    if(isMobile){
+      navigate('/view-note', { state: {heading, content} });
+    } else {
+      setDisabled(true);
+      openModal();
+    }
   }
 
   const handleEdit = (heading, content, id) => {
