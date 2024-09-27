@@ -18,11 +18,11 @@ export default function NoteModal({ isOpen, closeModal, handleChange, setSuccess
   const config = useMemo(() => ({
       readonly: false, // all options from https://xdsoft.net/jodit/docs/,
       placeholder: 'Start typing...'
-    }), []);
+  }), []);
 
-    useEffect(() => {
-      console.log("Token is = ", localToken);
-    }, [])
+  useEffect(() => {
+    console.log("Token is = ", localToken);
+  }, [])
 
 
   // function to handle submit
