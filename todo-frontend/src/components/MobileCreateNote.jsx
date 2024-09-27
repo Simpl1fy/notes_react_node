@@ -1,11 +1,11 @@
 import { Button } from "react-bootstrap";
-import { useState, } from "react";
+import { useState, useRef, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-// import JoditEditor from 'jodit-react';
+import JoditEditor from 'jodit-react';
 import { useAuth } from "./useAuth";
 import api from "../config/axiosConfig";
 import ToastFile from "./ToastFile";
-// useRef, useMemo, useEffect
+
 
 export default function MobileCreateNote() {
 
@@ -23,12 +23,12 @@ export default function MobileCreateNote() {
 
   const { localToken } = useAuth();
 
-  // const editor = useRef(null);
+  const editor = useRef(null);
 
-  // const config = useMemo(() => ({
-  //     readonly: false, // all options from https://xdsoft.net/jodit/docs/,
-  //     placeholder: 'Start typing...'
-  // }), []);
+  const config = useMemo(() => ({
+      readonly: false, // all options from https://xdsoft.net/jodit/docs/,
+      placeholder: 'Start typing...'
+  }), []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -74,11 +74,13 @@ export default function MobileCreateNote() {
           </div>
           <div className="mb-3 mx-3">
             <label htmlFor="content" className="form-label"><strong>Content</strong></label>
-            <textarea
-            type="text"
-            className="form-control"
-            onChange={(e) => setContent(e.target.value)}
-            value={content}
+            <JoditEditor
+                ref={editor}
+                value={content}
+                config={config}
+                tabIndex={1}
+                onBlur={newContent => setContent(newContent)}
+                onChange={newContent => setContent(newContent)}
             />
           </div>
           <div className="d-flex justify-content-start">
