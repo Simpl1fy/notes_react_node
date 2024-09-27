@@ -8,6 +8,9 @@ import Login from './components/Login'
 import Home from './components/Home'
 import Profile from './components/Profile'
 import { AuthProvider } from './components/useAuth'
+import MobileCreateNote from './components/MobileCreateNote'
+import MobileViewComponent from './components/MobileViewComponent'
+import MobileEditComponent from './components/MobileEditComponent'
 
 
 const router = createBrowserRouter([
@@ -32,6 +35,18 @@ const router = createBrowserRouter([
         path: "/profile",
         element: <Profile />
       },
+      {
+        path: "/create-note",
+        element: <MobileCreateNote />
+      }, 
+      {
+        path: "/view-note",
+        element: <MobileViewComponent />
+      }, 
+      {
+        path: "/edit-note",
+        element: <MobileEditComponent />
+      }, 
       {
         index: true,
         element: <Navigate to="/home" replace={true}/>,

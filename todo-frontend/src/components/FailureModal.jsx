@@ -18,6 +18,7 @@ export default function FailureModal({ isOpen, onRequestClose, message, link }) 
         onHide={onRequestClose}
         backdrop="static"
         keyboard={false}
+        centered
       >
         <Modal.Header closeButton>
           Failed
