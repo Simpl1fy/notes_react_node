@@ -96,22 +96,26 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
   }
 
   const handleView = (heading, content) => {
-    setHeading(heading);
-    setContent(content);
     if(isMobile){
       navigate('/view-note', { state: {heading, content} });
     } else {
+      setHeading(heading);
+      setContent(content);
       setDisabled(true);
       openModal();
     }
   }
 
   const handleEdit = (heading, content, id) => {
-    setDisabled(false);
-    setHeading(heading);
-    setContent(content);
-    setNoteId(id);
-    openModal();
+    if(isMobile) {
+      navigate('/edit-note', { state: {heading, content, id} });
+    } else {
+      setDisabled(false);
+      setHeading(heading);
+      setContent(content);
+      setNoteId(id);
+      openModal();
+    }
   }
 
   const handleConfirmation = (id) => {
