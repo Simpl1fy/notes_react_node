@@ -9,6 +9,7 @@ import ConfirmationModal from "./ConfirmationModal";
 import api from "../config/axiosConfig";
 import '../scss/showNote.css';
 import { useNavigate } from "react-router-dom";
+import Spinner from 'react-bootstrap/Spinner';
 
 
 export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggleToast, handleChange }) {
@@ -20,6 +21,7 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
 
   // state to store the token
   const [token, setToken] = useState();
+  const [spinner, setSpinner] = useState(true);
 
   // useEffect
   useEffect(() => {
@@ -52,6 +54,7 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
     const showNotes = async () => {
       console.log("Fetching notes");
       if(!token) {
+        setSpinner(false);
         setNoNotes('No notes found');
         return;
       }
@@ -60,6 +63,7 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
           headers: {Authorization: `Bearer ${token}`}
         });
         if (res.data.length > 0) {
+          setSpinner(false);
           setNotes(res.data);
         }
         console.log(notes);
@@ -127,7 +131,15 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
     <div style={{marginLeft: '0.5rem'}}>
       <h3 className="m-2">Your Notes</h3>
       <div>
-        {isLoggedIn &&  notes.length > 0 ?
+        {spinner ? 
+        <>
+          <div className="d-flex flex-column align-items-center justify-content-center">
+            <Spinner animation="border">
+              <p>Please wait, your notes are loading</p>
+            </Spinner>
+          </div>
+        </> :
+        (isLoggedIn && notes.length > 0 ?
         <>
           {notes.map((note, index) => (
             <div className="d-flex justify-content-between align-items-center border border-secondary-subtle rounded-2 m-2" key={index}>
@@ -144,7 +156,7 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
         </> : <>
           <h6 className="ms-2">{noNotes}</h6>
         </>
-        }
+        )}
       </div>
       <NoteViewEditModal isOpen={isOpen} closeModal={closeModal} isDisabled={disabled} heading={heading} content={content} noteId={noteId} handleChange={handleChange} setSuccess={setSuccess} setMessage={setMessage} toggleToast={toggleToast} />
       <ConfirmationModal isOpen={confirmModalIsOpen} closeModal={closeConfirmModal} id={noteId} deleteFunction={deleteNote} />

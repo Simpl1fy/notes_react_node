@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useAuth } from "./useAuth"
-import { Button } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
 import ChangeInformationModal from "./ChangeInformationModal";
 import ToastFile from "./ToastFile";
 import api from "../config/axiosConfig";
@@ -23,13 +23,12 @@ export default function Profile() {
   const [showToast, setShowToast] = useState(false);
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState('');
+  const [spinner, setSpinner] = useState(true);
 
   // functions for handling toast
   const toggleToast = () => setShowToast(!showToast);
 
   useEffect(() => {
-    console.log(localToken);
-    console.log("Is logged in ", isLoggedIn);
     if(isLoggedIn) {
       const getProfile = async() => {
         try {
@@ -39,12 +38,10 @@ export default function Profile() {
           console.log("Response from the server is ", res);
           if(res.data.length > 0) {
             setProfileData(res.data[0]);
-          } else {
-            setProfileData(null);
+            setSpinner(false);
           }
           } catch(err) {
             console.error(err);
-            setProfileData(null)
           }
       }
       getProfile();
@@ -52,8 +49,6 @@ export default function Profile() {
   }, [isUpdated])
 
   const handleUpdate = (buttonText) => {
-    console.log(localToken);
-    console.log(buttonText);
     setType(buttonText);
     openModal();
   }
@@ -63,7 +58,12 @@ export default function Profile() {
       <div className="p-3 bg-light-subtle border border-2" style={{width: "40rem"}}>
         <h3 className="mb-2">Your Profile</h3>
         <div className="d-flex flex-column">
-          {profileData ? (
+          {spinner ?
+          <div className="d-flex justify-content-center align-items-center">
+            <Spinner animation="border"/>
+          </div>
+          :
+          (profileData && (
           <>
             <div className="mt-2"><strong>Name:</strong> {profileData.name}</div>
             <div className="d-flex justify-content-between mt-2 profile-info">
@@ -82,11 +82,7 @@ export default function Profile() {
               </div>
             </div>
           </>
-          ) : (
-            <>
-              <p>No profile data found</p>
-            </>
-          )}
+          ))}
         </div>
       </div>
       <ChangeInformationModal isOpen={isChangeModalOpen} closeModal={closeModal} type={type} token={localToken} toggleToast={toggleToast} setSuccess={setSuccess} setMessage={setMessage} setIsUpdated={setIsUpdated} isUpdated={isUpdated} />
