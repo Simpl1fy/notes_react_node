@@ -10,11 +10,16 @@ export default function SuccessModal({ isOpen, onRequestClose, message }) {
     navigate('/home');
   }
 
+  const handleClose = () => {
+    onRequestClose();
+    navigate('/home');
+  }
+
   return (
     <div>
       <Modal
         show={isOpen}
-        onHide={onRequestClose}
+        onHide={handleClose}
         backdrop="static"
         keyboard={false}
         centered

@@ -4,6 +4,7 @@ import SuccessModal from "./SuccessModal";
 import FailureModal from "./FailureModal";
 import { useAuth } from "./useAuth";
 import api from "../config/axiosConfig";
+import { Spinner, Button } from "react-bootstrap";
 
 export default function Login() {
   const { login, isMobile } = useAuth();
@@ -12,6 +13,7 @@ export default function Login() {
   const [successModalIsOpen, setSuccessModalIsOpen] = useState(false);
   const [failureModalIsOpen, setFailureModalIsOpen] = useState(false);
   const [message, setMessage] = useState('')
+  const [spinner, setSpinner] = useState(false);
 
   const openModal = (setModalState) => {
     setModalState(true);
@@ -21,6 +23,7 @@ export default function Login() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSpinner(true);
     try {
     const res = await api.post('/login', {
       email: email,
@@ -34,6 +37,7 @@ export default function Login() {
     } else {
       openModal(setFailureModalIsOpen);
     }
+    setSpinner(false);
     } catch(err) {
       console.error(err);
     }
@@ -44,7 +48,7 @@ export default function Login() {
 
   return (
     <div className="form-container px-3 py-3 d-flex justify-content-center align-items-center">
-      <form className="bg-light px-3 py-3 border border-2 rounded-2 border-dark w-25" style={{minWidth: isMobile? '95vw' : '40vw'}} onSubmit={handleSubmit}>
+      <form className="bg-light px-3 py-3 border border-2 rounded-2 border-dark w-25" style={{minWidth: isMobile? '95vw' : '40vw'}}>
         <h2 className="mb-3">Login</h2>
         <div className="mb-3">
           <label htmlFor="email" className="form-label">
@@ -75,9 +79,16 @@ export default function Login() {
           />
         </div>
         <div>
-          <button type="submit" className="btn btn-primary">
-            Login
-          </button>
+          <Button variant="primary" onClick={handleSubmit} style={{width: "5rem"}}>
+            {spinner ?
+            <>
+              <Spinner variant="grow" size="sm" />
+            </> :
+            <>
+              Login
+            </>
+            }
+          </Button>
         </div>
         <div className="pt-2">
             Don&apos;t have an account?

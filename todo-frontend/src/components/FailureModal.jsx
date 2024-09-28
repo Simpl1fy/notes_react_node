@@ -11,11 +11,16 @@ export default function FailureModal({ isOpen, onRequestClose, message, link }) 
     navigate(link);
   }
 
+  const handleClose = () => {
+    onRequestClose();
+    navigate('/signup');
+  }
+
   return (
     <div>
       <Modal
         show={isOpen}
-        onHide={onRequestClose}
+        onHide={handleClose}
         backdrop="static"
         keyboard={false}
         centered

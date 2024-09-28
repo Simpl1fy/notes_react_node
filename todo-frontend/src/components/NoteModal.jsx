@@ -1,5 +1,5 @@
 import { Modal, Button } from "react-bootstrap";
-import { useState, useRef, useMemo, useEffect } from "react";
+import { useState, useRef, useMemo } from "react";
 import JoditEditor from 'jodit-react';
 import { useAuth } from "./useAuth";
 import api from "../config/axiosConfig";
@@ -19,10 +19,6 @@ export default function NoteModal({ isOpen, closeModal, handleChange, setSuccess
       readonly: false, // all options from https://xdsoft.net/jodit/docs/,
       placeholder: 'Start typing...'
   }), []);
-
-  useEffect(() => {
-    console.log("Token is = ", localToken);
-  }, [])
 
 
   // function to handle submit
