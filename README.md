@@ -1,6 +1,6 @@
 This is a Notes app, where you can create your own notes, save them, download them.
 
-This is my first fullstack web application project created after learning react and nodejs with express
+This is my first fullstack web application project created after learning react and nodejs with express. This is a fully responsive, so it can be used anywhere, mobile, phablets, tablets and desktop.
 
 You need to signup or login to save your notes.
 
