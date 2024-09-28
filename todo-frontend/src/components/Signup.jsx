@@ -4,7 +4,7 @@ import SuccessModal from "./SuccessModal";
 import FailureModal from "./FailureModal";
 import { useAuth } from "./useAuth";
 import api from "../config/axiosConfig";
-
+import { Spinner, Button } from 'react-bootstrap';
 
 
 export default function Signup() {
@@ -15,6 +15,8 @@ export default function Signup() {
   const [message, setMessage] = useState('')
   const [successModalIsOpen, setSuccessModalIsOpen] = useState(false);
   const [failureModalIsOpen, setFailureModalIsOpen] = useState(false);
+  const [spinner, setSpinner] = useState(false);
+
   const openModal = (setModalState) => {
     setModalState(true);
   }
@@ -23,15 +25,13 @@ export default function Signup() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSpinner(true);
     try {
       const res = await api.post('/signup', {
         name: formName,
         email: formEmail,
         password: formPassword
       });
-      console.log(res.status);
-      console.log(res.data.success);
-      console.log(res.data.message);
       setMessage(res.data.message);
       if(res.data.success) {
         const generatedToken = res.data.token;
@@ -40,6 +40,7 @@ export default function Signup() {
       } else {
         openModal(setFailureModalIsOpen);
       }
+      setSpinner(false);
     } catch(err) {
       console.error(err);
       if (err.response) {
@@ -60,7 +61,7 @@ export default function Signup() {
   }
   return (
     <div className="form-container px-3 py-3 d-flex justify-content-center align-items-center">
-      <form className="bg-light px-3 py-3 border border-2 rounded-2 border-dark w-25" style={{minWidth: isMobile? '95vw' : '40vw'}} onSubmit={handleSubmit} action="" method="post">
+      <form className="bg-light px-3 py-3 border border-2 rounded-2 border-dark w-25" style={{minWidth: isMobile? '95vw' : '40vw'}}>
         <h2 className="mb-3">Signup</h2>
         <div className="mb-3">
           <label htmlFor="name" className="form-label">
@@ -106,9 +107,15 @@ export default function Signup() {
           />
         </div>
         <div>
-          <button type="submit" className="btn btn-primary">
-            Signup
-          </button>
+          <Button variant="primary" onClick={handleSubmit} style={{width: "5rem"}}>
+            {spinner ? 
+            <>
+              <Spinner variant="grow" size="sm" />
+            </>:
+            <>
+              Signup
+            </>}
+          </Button>
         </div>
         <div className="pt-2">
             Already have an account?
