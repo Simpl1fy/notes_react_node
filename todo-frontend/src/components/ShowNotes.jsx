@@ -136,9 +136,8 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
         {spinner ? 
         <>
           <div className="d-flex flex-column align-items-center justify-content-center">
-            <Spinner animation="border">
-              <p>Please wait, your notes are loading</p>
-            </Spinner>
+            <Spinner animation="border" />
+            <p>Please wait, your notes are loading</p>
           </div>
         </> :
         (isLoggedIn && notes.length > 0 ?
