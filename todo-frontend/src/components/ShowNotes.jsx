@@ -63,12 +63,14 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
           headers: {Authorization: `Bearer ${token}`}
         });
         if (res.data.length > 0) {
-          setSpinner(false);
           setNotes(res.data);
+          setSpinner(false);
         }
         console.log(notes);
       } catch(err) {
         console.error(err);
+        setSpinner(false);
+        setNoNotes('Failed to load notes');
       }
     }
     showNotes();
