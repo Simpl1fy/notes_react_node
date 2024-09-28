@@ -1,4 +1,4 @@
-import { Button } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
 import { useState, useRef, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import JoditEditor from 'jodit-react';
@@ -18,6 +18,7 @@ export default function MobileCreateNote() {
   const [success, setSuccess] = useState();
   const [message, setMessage] = useState('');
   const [showToast, setShowToast] = useState(false);
+  const [spinner, setSpinner] = useState(false);
 
   const toggleToast = () => setShowToast(!showToast);
 
@@ -26,12 +27,13 @@ export default function MobileCreateNote() {
   const editor = useRef(null);
 
   const config = useMemo(() => ({
-      readonly: false, // all options from https://xdsoft.net/jodit/docs/,
+      readonly: false,
       placeholder: 'Start typing...'
   }), []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSpinner(true);
     const config = {
       headers: {Authorization: `Bearer ${localToken}`}
     }
@@ -49,6 +51,7 @@ export default function MobileCreateNote() {
       setSuccess(false);
       setMessage(res.data.message);
     }
+    setSpinner(false);
     toggleToast();
   }
 
@@ -84,7 +87,22 @@ export default function MobileCreateNote() {
             />
           </div>
           <div className="d-flex justify-content-start">
-            <Button variant="primary" className="ms-3" onClick={handleSubmit}>Submit</Button>
+            <Button variant="primary" className="ms-3" onClick={handleSubmit} style={{width: "5rem"}}>
+              {spinner ? 
+              <>
+                <Spinner
+                  as="span"
+                  animation="grow"
+                  size="sm"
+                  role="status"
+                />
+              </> :
+              (
+                <>
+                  Submit
+                </>
+              )}
+            </Button>
             <Button variant="success" className="ms-3" onClick={handleCancel}>Go Back to Home Page</Button>
           </div>
         </form>

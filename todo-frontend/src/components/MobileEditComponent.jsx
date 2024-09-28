@@ -1,4 +1,4 @@
-import { Button } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
 import { useState, useRef, useMemo } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import JoditEditor from 'jodit-react';
@@ -15,6 +15,7 @@ export default function MobileEditComponent() {
   
   const [editHeading, setEditHeading] = useState(heading);
   const [editContent, setEditContent] = useState(content);
+  const [spinner, setSpinner] = useState(false);
 
   // toast
   const [success, setSuccess] = useState();
@@ -34,6 +35,7 @@ export default function MobileEditComponent() {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
+    setSpinner(true);
     const updatedData = {
       heading: editHeading,
       content: editContent
@@ -50,6 +52,7 @@ export default function MobileEditComponent() {
         setSuccess(false);
         setMessage(res.data.message);
       }
+      setSpinner(false);
       toggleToast();
     } catch(err) {
       console.error(err);
@@ -88,7 +91,22 @@ export default function MobileEditComponent() {
             />
           </div>
           <div className="d-flex justify-content-start">
-            <Button variant="primary" className="ms-3" onClick={handleUpdate}>Update</Button>
+          <Button variant="primary" className="ms-3" onClick={handleUpdate} style={{width: "5rem"}}>
+              {spinner ? 
+              <>
+                <Spinner
+                  as="span"
+                  animation="grow"
+                  size="sm"
+                  role="status"
+                />
+              </> :
+              (
+                <>
+                  Update
+                </>
+              )}
+            </Button>
             <Button variant="success" className="ms-3" onClick={handleCancel}>Go Back to Home Page</Button>
           </div>
         </form>
