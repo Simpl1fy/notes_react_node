@@ -33,7 +33,6 @@ export function AuthProvider({ children }) {
     })
 
     const signup = (jwtToken) => {
-        console.log('Token received is = ', jwtToken);
         localStorage.setItem('token', jwtToken);
         setIsLoggedIn(true);
         setLocalToken(jwtToken);

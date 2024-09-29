@@ -14,7 +14,7 @@ export default function FailureModal({ isOpen, onRequestClose, message, link, se
 
   const handleClose = () => {
     onRequestClose();
-    navigate('/signup');
+    navigate(link);
   }
 
   return (

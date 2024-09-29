@@ -52,7 +52,6 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
 
   useEffect(() => {
     const showNotes = async () => {
-      console.log("Fetching notes");
       if(!token) {
         setSpinner(false);
         setNoNotes('No notes found');
@@ -77,12 +76,9 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
   }, [token, formSubmitted]);
 
   const deleteNote = async (id) => {
-    console.log("Deleting note with id = " + id);
     try {
       const res = await api.post(`/note/delete/${id}`);
-      console.log(res);
       if(res.data.success) {
-        console.log("deletion successful");
         setNotes((prevNotes) => {
           const updatedNotes = prevNotes.filter((note) => note.notes_id !== id);
           console.log(`Updated Notes = ${updatedNotes}`);
@@ -91,7 +87,6 @@ export default function ShowNotes({ formSubmitted, setSuccess, setMessage, toggl
         setSuccess(true);
         setMessage(res.data.message);
       } else {
-        console.log("failed");
         setSuccess(false);
         setMessage(res.data.message);
       }

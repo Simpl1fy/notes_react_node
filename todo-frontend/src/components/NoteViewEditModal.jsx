@@ -10,9 +10,6 @@ export default function NoteViewEditModal({ isOpen, closeModal, isDisabled, head
   const [editContent, setEditContent] = useState('');
 
   useEffect(() => {
-    console.log(`Note Id is = ${noteId}`);
-    console.log(heading);
-    console.log(content);
     setEditHeading(heading);
     setEditContent(content);
   }, [heading, content])
@@ -35,7 +32,6 @@ export default function NoteViewEditModal({ isOpen, closeModal, isDisabled, head
     }
     try {
       const res = await api.put(`/note/update/${noteId}`, updatedData);
-      console.log(res);
       if(res.data.success) {
         console.log("Your note has been updated successfully");
         setSuccess(true);
