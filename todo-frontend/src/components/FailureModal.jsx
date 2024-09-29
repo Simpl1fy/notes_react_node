@@ -2,12 +2,13 @@
 import {Modal, Button} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
-export default function FailureModal({ isOpen, onRequestClose, message, link }) {
+export default function FailureModal({ isOpen, onRequestClose, message, link, setSpinner }) {
 
   const navigate = useNavigate();
 
   const handleClick = () => {
     onRequestClose();
+    setSpinner(false);
     navigate(link);
   }
 

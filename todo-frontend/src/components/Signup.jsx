@@ -134,6 +134,7 @@ export default function Signup() {
         onRequestClose={() => closeModal(setFailureModalIsOpen)}
         message={message}
         link="/signup"
+        setSpinner={setSpinner}
       />
     </div>
   );
