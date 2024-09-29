@@ -44,16 +44,12 @@ export default function Signup() {
     } catch(err) {
       console.error(err);
       if (err.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
         setMessage(err.response.data.message || "Could not sign up");
         openModal(setFailureModalIsOpen);
       } else if (err.request) {
-        // The request was made but no response was received
         setMessage("No response from server");
         openModal(setFailureModalIsOpen);
       } else {
-        // Something happened in setting up the request that triggered an Error
         setMessage("An error occurred");
         openModal(setFailureModalIsOpen);
       }
@@ -134,6 +130,7 @@ export default function Signup() {
         onRequestClose={() => closeModal(setFailureModalIsOpen)}
         message={message}
         link="/signup"
+        setSpinner={setSpinner}
       />
     </div>
   );

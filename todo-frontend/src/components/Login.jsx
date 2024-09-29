@@ -40,8 +40,17 @@ export default function Login() {
     setSpinner(false);
     } catch(err) {
       console.error(err);
-    }
-    
+      if (err.response) {
+        setMessage(err.response.data.message || "Could not log in");
+        openModal(setFailureModalIsOpen);
+      } else if (err.request) {
+        setMessage("No response from server");
+        openModal(setFailureModalIsOpen);
+      } else {
+        setMessage("An error occurred");
+        openModal(setFailureModalIsOpen);
+      }
+    } 
   }
   
 
@@ -107,6 +116,7 @@ export default function Login() {
         onRequestClose={() => closeModal(setFailureModalIsOpen)}
         message={message}
         link="/login"
+        setSpinner={setSpinner}
       />
     </div>
   )

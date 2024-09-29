@@ -8,7 +8,6 @@ export default function ChangeInformationModal ({ isOpen, closeModal, type, toke
   const [input, setInput] = useState('');
 
   useEffect(() => {
-    console.log(type);
     if(type === 'email') {
       setText('Email');
     } else {
@@ -30,7 +29,6 @@ export default function ChangeInformationModal ({ isOpen, closeModal, type, toke
         const res = await api.put('/update/email', value, config);
 
         if (res.data.success) {
-          console.log("Email Updated Succesfully");
           setInput('');
           setSuccess(true);
           setMessage(res.data.message);
@@ -38,7 +36,6 @@ export default function ChangeInformationModal ({ isOpen, closeModal, type, toke
           closeModal();
           toggleToast();
         } else {
-          console.log("Email Updation Failed");
           setInput('');
           setSuccess(false);
           setMessage(res.data.message);
@@ -52,7 +49,6 @@ export default function ChangeInformationModal ({ isOpen, closeModal, type, toke
         const res = await api.put('/update/password', value, config);
 
         if(res.data.success) {
-          console.log("Password Updated Succesfully");
           setInput('');
           setSuccess(true);
           setMessage(res.data.message);
@@ -60,7 +56,6 @@ export default function ChangeInformationModal ({ isOpen, closeModal, type, toke
           closeModal();
           toggleToast();
         } else {
-          console.log("Password Updation Failed");
           setInput('');
           setSuccess(false);
           setMessage(res.data.message);
